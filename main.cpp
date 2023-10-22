@@ -3,34 +3,25 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include "src/maze.h"
 
 #ifdef __linux__
 #include <X11/Xlib.h>
 #endif
 
-class SomeClass {
-public:
-    explicit SomeClass(int) {}
-};
-
-SomeClass *getC() {
-    return new SomeClass{2};
-}
 
 int main() {
     #ifdef __linux__
     XInitThreads();
     #endif
 
-    SomeClass *c = getC();
-    std::cout << c << "\n";
-    delete c;
-
     sf::RenderWindow window;
     // NOTE: sync with env variable APP_WINDOW from .github/workflows/cmake.yml:30
-    window.create(sf::VideoMode({800, 700}), "My Window", sf::Style::Default);
+    window.create(sf::VideoMode({800, 700}), "Maze game", sf::Style::Default);
     window.setVerticalSyncEnabled(true);
     //window.setFramerateLimit(60);
+    maze m(5, 5, 500, 500, "..\\tastatura.txt");
+
 
     while(window.isOpen()) {
         sf::Event e;
@@ -44,7 +35,7 @@ int main() {
                           << "New height: " << window.getSize().y << '\n';
                 break;
             case sf::Event::KeyPressed:
-                std::cout << "Received key " << (e.key.code == sf::Keyboard::X ? "X" : "(other)") << "\n";
+                std::cout << "Received key " << e.key.code << "\n";
                 break;
             default:
                 break;
@@ -54,6 +45,7 @@ int main() {
         std::this_thread::sleep_for(300ms);
 
         window.clear();
+        m.draw(window);
         window.display();
     }
 
