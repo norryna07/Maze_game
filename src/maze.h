@@ -8,18 +8,18 @@
 #include <string>
 #include "cell.h"
 #include <SFML/Graphics.hpp>
-
+#include <ostream>
 
 class maze {
     std::vector <std::vector <cell>> matrix;
     const int nr_lin, nr_col;
-    const int dim_x, dim_y;
-    const int dim_cell_x, dim_cell_y;
+    const sf::Vector2u dim, dim_cell;
 public:
-    maze(const int nrLin, const int nrCol, const int dimX, const int dimY,const std::string& filename = "");
+    maze(int nrLin, int nrCol, int dimX, int dimY,const std::string& filename = "");
     ~maze() = default;
     void draw(sf::RenderWindow& window);
 
+    friend std::ostream &operator<<(std::ostream &os, const maze &maze);
 };
 
 

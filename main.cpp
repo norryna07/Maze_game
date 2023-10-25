@@ -17,11 +17,11 @@ int main() {
 
     sf::RenderWindow window;
     // NOTE: sync with env variable APP_WINDOW from .github/workflows/cmake.yml:30
-    window.create(sf::VideoMode({800, 700}), "Maze game", sf::Style::Default);
+    window.create(sf::VideoMode({500, 500}), "Maze game", sf::Style::Default);
     window.setVerticalSyncEnabled(true);
     //window.setFramerateLimit(60);
-    maze m(5, 5, 500, 500, "..\\tastatura.txt");
-
+    maze m(5, 5, window.getSize().x, window.getSize().y, "..\\tastatura.txt");
+    std::cout << m;
 
     while(window.isOpen()) {
         sf::Event e;

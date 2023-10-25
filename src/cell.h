@@ -18,12 +18,15 @@ class cell {
 public:
     cell(cell_mode mode = FREE, int lin = 0, int col = 0, int dimX = 100, int dimY = 100);
     ~cell() = default;
+    cell(const cell &other);
 
     void setMode(cell_mode _mode);
-    void setDimentions(int lin, int col, int dim_x, int dim_y);
+    void setDimentions(int lin, int col,unsigned int dim_x,unsigned int dim_y);
     const sf::RectangleShape &getRect() const;
+    cell_mode getMode() const;
 
     friend std::ostream &operator<<(std::ostream &os, const cell &cell);
+    cell& operator=(const cell& other);
 };
 
 
