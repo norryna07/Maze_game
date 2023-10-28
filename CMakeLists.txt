@@ -113,7 +113,9 @@ add_executable(${PROJECT_NAME} main.cpp
         src/cell.cpp
         src/textures.h
         src/maze.cpp
-        src/maze.h)
+        src/maze.h
+        src/player.cpp
+        src/player.h)
 
 ###############################################################################
 

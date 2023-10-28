@@ -18,7 +18,8 @@ public:
     maze(int nrLin, int nrCol, int dimX, int dimY,const std::string& filename = "");
     ~maze() = default;
     void draw(sf::RenderWindow& window);
-
+    bool move(cell_mode mod, int old_x, int old_y, int new_x, int new_y);
+    inline bool inside(int x, int y);
     friend std::ostream &operator<<(std::ostream &os, const maze &maze);
 };
 

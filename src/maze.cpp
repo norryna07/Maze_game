@@ -50,3 +50,16 @@ std::ostream &operator<<(std::ostream &os, const maze &maze) {
     return os;
 }
 
+bool maze::inside(int x, int y) {
+    return x >= 0 && x < nr_col && y >= 0 && y < nr_lin;
+}
+
+bool maze::move(cell_mode mod, int old_x, int old_y, int new_x, int new_y) {
+    if (!inside(new_x, new_y)) return false;
+    if (matrix[old_y][old_x].getMode() == WALL) return false;
+    if (matrix[new_y][new_x].getMode() == WALL) return false;
+    matrix[old_y][old_x].setMode(FREE);
+    matrix[new_y][new_x].setMode(mod);
+    return true;
+}
+

@@ -4,6 +4,7 @@
 #include <chrono>
 #include <thread>
 #include "src/maze.h"
+#include "src/player.h"
 
 #ifdef __linux__
 #include <X11/Xlib.h>
@@ -21,28 +22,13 @@ int main() {
     window.setVerticalSyncEnabled(true);
     //window.setFramerateLimit(60);
     maze m(5, 5, window.getSize().x, window.getSize().y, "..\\tastatura.txt");
+    player p;
     std::cout << m;
 
     while(window.isOpen()) {
-        sf::Event e;
-        while(window.pollEvent(e)) {
-            switch(e.type) {
-            case sf::Event::Closed:
-                window.close();
-                break;
-            case sf::Event::Resized:
-                std::cout << "New width: " << window.getSize().x << '\n'
-                          << "New height: " << window.getSize().y << '\n';
-                break;
-            case sf::Event::KeyPressed:
-                std::cout << "Received key " << e.key.code << "\n";
-                break;
-            default:
-                break;
-            }
-        }
+        p.move(window, m);
         using namespace std::chrono_literals;
-        std::this_thread::sleep_for(300ms);
+        std::this_thread::sleep_for(200ms);
 
         window.clear();
         m.draw(window);
