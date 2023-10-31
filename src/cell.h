@@ -20,8 +20,8 @@ public:
     ~cell() = default;
     cell(const cell &other);
 
-    void setMode(cell_mode _mode);
-    void setDimentions(int lin, int col,unsigned int dim_x,unsigned int dim_y);
+    void setMode(cell_mode lmode);
+    void setDimensions(int lin, int col,unsigned int dim_x,unsigned int dim_y);
     const sf::RectangleShape &getRect() const;
     cell_mode getMode() const;
 

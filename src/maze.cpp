@@ -6,38 +6,52 @@
 #include <fstream>
 #include <iostream>
 
+
+/// \brief Constructor for maze class. Create a maze with nrLin rows, nrCol columns and with the shape found in filename, putting always the player on (0,0) position.
+/// \param nrLin - number of rows
+/// \param nrCol - number of columns
+/// \param dimX - dimension on X axis
+/// \param dimY - dimension on Y axis
+/// \param filename - a path to a file where is a matrix that contain just 0 and 1 values: \n   0 - a free cell, 1 - a wall cell
 maze::maze(const int nrLin, const int nrCol, const int dimX, const int dimY, const std::string& filename) : nr_lin(nrLin), nr_col(nrCol),
                                                                                dim(dimX, dimY), dim_cell(dimX/nrCol, dimY/nrLin) {
-    matrix.resize(nr_lin, std::vector<cell>(nr_col));
-    if (filename.empty()) {
+    matrix.resize(nr_lin, std::vector<cell>(nr_col)); ///resize the matrix
+    if (filename.empty()) { ///if the filename is empty will create a maze where all cells are free.
         for (int i = 0; i < nr_lin; ++i)
             for (int j = 0; j < nr_col; ++j)
-                matrix[i][j].setDimentions(i, j, dim_cell.x, dim_cell.y);
+                matrix[i][j].setDimensions(i, j, dim_cell.x, dim_cell.y);
     }
     else {
         std::ifstream fin(filename);
-        bool wall;
+        bool type;
         for (int i = 0; i < nr_lin; ++i)
             for (int j = 0; j < nr_col; ++j)
             {
-                fin >> wall;
+                fin >> type;
                 cell_mode mod;
-                if (wall == 1) mod = WALL;
+                if (type == 1) mod = WALL;
                 else mod = FREE;
-                matrix[i][j].setDimentions(i, j, dim_cell.x, dim_cell.y);
+                matrix[i][j].setDimensions(i, j, dim_cell.x, dim_cell.y);
                 matrix[i][j].setMode(mod);
             }
+        fin.close();
     }
     //set player
     matrix[0][0].setMode(PLAYER);
 }
 
+/// \brief display on an SFML windows the maze.
+/// \param window - a reference to a RenderWindow object
 void maze::draw(sf::RenderWindow &window) {
     for (int i = 0; i < nr_lin; ++i)
         for (int j = 0; j < nr_col; ++j)
             window.draw(matrix[i][j].getRect());
 }
 
+/// \brief Overwrite the operator << for display to the output information about the maze, and a description of the maze's matrix: 0 will represent free cells, 1 wall cells and 2 the player cell.
+/// \param os - ostream reference
+/// \param maze - the maze object
+/// \return ostream reference after modifications
 std::ostream &operator<<(std::ostream &os, const maze &maze) {
     os << " nr_lin: " << maze.nr_lin << " nr_col: " << maze.nr_col << " dim_x: "
        << maze.dim.x << " dim_y: " << maze.dim.y << " dim_cell_x: " << maze.dim_cell.x << " dim_cell_y: "
@@ -50,10 +64,22 @@ std::ostream &operator<<(std::ostream &os, const maze &maze) {
     return os;
 }
 
+/// \brief A bool function that verify if a cell is inside the maze's matrix.
+/// \param x - coordinate on X axis
+/// \param y - coordinate on Y axis
+/// \return true if the cell is inside
 bool maze::inside(int x, int y) {
     return x >= 0 && x < nr_col && y >= 0 && y < nr_lin;
 }
 
+
+/// \brief Move a character on the maze
+/// \param mod - type of character that is moving: PLAYER, MONSTER
+/// \param old_x - the old X coordinate
+/// \param old_y - the old Y coordinate
+/// \param new_x - the new X coordinate
+/// \param new_y - the new Y coordinate
+/// \return true is the character was able to move, a character can move in a WALL cell, or outside the matrix
 bool maze::move(cell_mode mod, int old_x, int old_y, int new_x, int new_y) {
     if (!inside(new_x, new_y)) return false;
     if (matrix[old_y][old_x].getMode() == WALL) return false;
