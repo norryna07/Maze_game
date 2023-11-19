@@ -1,14 +1,15 @@
 //
-// Created by norin on 10/28/2023.
+// Created by Norina Alexandru on 10/28/2023.
+// Cpp file for Player class.
 //
 
-#include "player.h"
+#include "../headers/Player.hpp"
 
 /// \brief Overwrite the operator << for display to the output player's position
 /// \param os - ostream reference
 /// \param player - a player object
 /// \return ostream reference after modifications
-std::ostream &operator<<(std::ostream &os, const player &player) {
+std::ostream &operator<<(std::ostream &os, const Player &player) {
     os << "Player x: " << player.x << " y: " << player.y << '\n';
     return os;
 }
@@ -16,7 +17,7 @@ std::ostream &operator<<(std::ostream &os, const player &player) {
 /// \brief Move the player on the screen based on key that is press on keyboard.
 /// \param window - a RenderWindow reference where the game that place
 /// \param m - a reference to the maze where the player is moving
-void player::move(sf::RenderWindow &window, maze &m) {
+void Player::move(sf::RenderWindow &window, Maze &m) {
     sf::Event e;
     int lx, ly;
     lx = this->x;
