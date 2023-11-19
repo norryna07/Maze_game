@@ -3,57 +3,35 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include "headers/Maze.hpp"
+#include "headers/Player.hpp"
 
 #ifdef __linux__
 #include <X11/Xlib.h>
 #endif
 
-class SomeClass {
-public:
-    explicit SomeClass(int) {}
-};
-
-SomeClass *getC() {
-    return new SomeClass{2};
-}
 
 int main() {
     #ifdef __linux__
     XInitThreads();
     #endif
 
-    SomeClass *c = getC();
-    std::cout << c << "\n";
-    delete c;
-
     sf::RenderWindow window;
     // NOTE: sync with env variable APP_WINDOW from .github/workflows/cmake.yml:30
-    window.create(sf::VideoMode({800, 700}), "My Window", sf::Style::Default);
+    window.create(sf::VideoMode({500, 500}), "Maze game", sf::Style::Default);
     window.setVerticalSyncEnabled(true);
     //window.setFramerateLimit(60);
+    Maze m(5, 5, window.getSize().x, window.getSize().y, "..\\tastatura.txt");
+    Player p;
+    std::cout << m;
 
     while(window.isOpen()) {
-        sf::Event e;
-        while(window.pollEvent(e)) {
-            switch(e.type) {
-            case sf::Event::Closed:
-                window.close();
-                break;
-            case sf::Event::Resized:
-                std::cout << "New width: " << window.getSize().x << '\n'
-                          << "New height: " << window.getSize().y << '\n';
-                break;
-            case sf::Event::KeyPressed:
-                std::cout << "Received key " << (e.key.code == sf::Keyboard::X ? "X" : "(other)") << "\n";
-                break;
-            default:
-                break;
-            }
-        }
+        p.move(window, m);
         using namespace std::chrono_literals;
-        std::this_thread::sleep_for(300ms);
+        std::this_thread::sleep_for(200ms);
 
         window.clear();
+        m.draw(window);
         window.display();
     }
 
