@@ -3,8 +3,8 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include "src/maze.h"
-#include "src/player.h"
+#include "headers/Maze.hpp"
+#include "headers/Player.hpp"
 
 #ifdef __linux__
 #include <X11/Xlib.h>
@@ -21,8 +21,8 @@ int main() {
     window.create(sf::VideoMode({500, 500}), "Maze game", sf::Style::Default);
     window.setVerticalSyncEnabled(true);
     //window.setFramerateLimit(60);
-    maze m(5, 5, window.getSize().x, window.getSize().y, "..\\tastatura.txt");
-    player p;
+    Maze m(5, 5, window.getSize().x, window.getSize().y, "..\\tastatura.txt");
+    Player p;
     std::cout << m;
 
     while(window.isOpen()) {

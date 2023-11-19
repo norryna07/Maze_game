@@ -1,5 +1,6 @@
 //
-// Created by norin on 10/22/2023.
+// Created by Norina Alexandru on 10/22/2023.
+// A class that manage all textures use in this project.
 //
 
 #ifndef OOP_TEXTURES_H

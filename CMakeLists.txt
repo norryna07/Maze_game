@@ -109,13 +109,10 @@ endif()
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${PROJECT_NAME} main.cpp
-        src/cell.h
         src/cell.cpp
-        src/textures.h
         src/maze.cpp
-        src/maze.h
         src/player.cpp
-        src/player.h)
+        headers/maze.hpp)
 
 ###############################################################################
 

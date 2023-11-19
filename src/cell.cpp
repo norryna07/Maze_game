@@ -1,9 +1,10 @@
 //
-// Created by norin on 10/22/2023.
+// Created by Norina Alexandru on 10/22/2023.
+// The cpp file for Cell class.
 //
 
-#include "cell.h"
-#include "textures.h"
+#include "../headers/Cell.hpp"
+#include "../headers/Textures.hpp"
 
 
 /// \brief Constructor for cell class.
@@ -12,7 +13,7 @@
 /// \param col - column of cell
 /// \param dimX - dimension on X axis
 /// \param dimY - dimension on Y axis
-cell::cell(cell_mode mode, const int lin,const int col,const int dimX,const int dimY) : mode(mode) {
+Cell::Cell(Cell_mode mode, const int lin,const int col,const int dimX,const int dimY) : mode(mode) {
     this->rect.setSize({static_cast<float>(dimX), static_cast<float>(dimY)}); ///set the size for RectangleShape
     this->rect.setPosition({static_cast<float>(col*dimX), static_cast<float>(lin*dimY)}); ///set the position
     switch (mode) { ///set the texture
@@ -27,9 +28,9 @@ cell::cell(cell_mode mode, const int lin,const int col,const int dimX,const int 
     }
 }
 
-/// \brief A setter for the type of cell.
+/// \brief A setter for the type of Cell.
 /// \param lmode - type of cell that will be set: FREE, WALL, PLAYER, MONSTER
-void cell::setMode(cell_mode lmode) {
+void Cell::setMode(Cell_mode lmode) {
     if (this->mode == WALL) return;
     this->mode = lmode;
     switch (lmode) {
@@ -50,15 +51,15 @@ void cell::setMode(cell_mode lmode) {
 
 /// \brief Getter for RectangleShape
 /// \return a constant reference to RectangleShape object
-const sf::RectangleShape &cell::getRect() const {
+const sf::RectangleShape &Cell::getRect() const {
     return rect;
 }
 
 /// \brief Overwrite the operator << for display on output information about a cell.
 /// \param os ostream reference
-/// \param cell the cell to be displayed
+/// \param cell the Cell to be displayed
 /// \return ostream reference after modifications
-std::ostream &operator<<(std::ostream &os, const cell &cell) {
+std::ostream &operator<<(std::ostream &os, const Cell &cell) {
     int dim_x = static_cast<int>(cell.rect.getSize().x);
     int dim_y = static_cast<int>(cell.rect.getSize().y);
     int lin = static_cast<int>(cell.rect.getPosition().y) / dim_y;
@@ -83,18 +84,18 @@ std::ostream &operator<<(std::ostream &os, const cell &cell) {
 }
 
 /// \brief Setter for all cell's dimensions.
-/// \param lin - cell's row
+/// \param lin - Cell's row
 /// \param col - cell's column
 /// \param dim_x - dimension on X axis
 /// \param dim_y - dimension on Y axis
-void cell::setDimensions(int lin, int col,unsigned int dim_x,unsigned int dim_y) {
+void Cell::setDimensions(int lin, int col,unsigned int dim_x,unsigned int dim_y) {
     this->rect.setSize({static_cast<float>(dim_x), static_cast<float>(dim_y)});
     this->rect.setPosition({static_cast<float>(col*dim_x), static_cast<float>(lin*dim_y)});
 }
 
 /// \brief Copy constructor for cell class.
 /// \param other - constant reference for an other class object
-cell::cell(const cell &other) {
+Cell::Cell(const Cell &other) {
     this->mode = other.mode;
     this->rect.setSize(other.rect.getSize());
     this->rect.setTexture(other.rect.getTexture());
@@ -104,7 +105,7 @@ cell::cell(const cell &other) {
 /// \brief Overwrite the operator= for cell class
 /// \param other - constant reference fon an other class object
 /// \return a reference to a cell object
-cell &cell::operator=(const cell &other) {
+Cell &Cell::operator=(const Cell &other) {
     if (this != &other) {
         this->mode = other.mode;
         this->rect.setSize(other.rect.getSize());
@@ -116,7 +117,7 @@ cell &cell::operator=(const cell &other) {
 
 /// \brief Getter for the type of cell
 /// \return the type of cell
-cell_mode cell::getMode() const {
+Cell_mode Cell::getMode() const {
     return mode;
 }
 
