@@ -4,6 +4,8 @@
 
 #include "../../headers/Monsters/SentryPaws.hpp"
 
+Cell_mode SentryPaws::type = SENTRY_PAWS;
+
 SentryPaws::SentryPaws(unsigned int x, unsigned int y) : Monster(x, y) {
 }
 

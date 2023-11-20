@@ -4,7 +4,6 @@
 //
 
 #include "../headers/Cell.hpp"
-#include "../headers/Textures.hpp"
 
 
 /// \brief Constructor for cell class.
@@ -16,7 +15,7 @@
 Cell::Cell(Cell_mode mode, const int lin,const int col,const int dimX,const int dimY) : mode(mode) {
     this->rect.setSize({static_cast<float>(dimX), static_cast<float>(dimY)}); ///set the size for RectangleShape
     this->rect.setPosition({static_cast<float>(col*dimX), static_cast<float>(lin*dimY)}); ///set the position
-    this->rect.setTexture(Textures::getTexture(mode));
+    this->rect.setTexture(TextureManager::getTexture(mode));
 }
 
 /// \brief A setter for the type of Cell.
@@ -24,7 +23,7 @@ Cell::Cell(Cell_mode mode, const int lin,const int col,const int dimX,const int 
 void Cell::setMode(Cell_mode lmode) {
     if (this->mode == WALL) return;
     this->mode = lmode;
-    this->rect.setTexture(Textures::getTexture(this->mode), true);
+    this->rect.setTexture(TextureManager::getTexture(this->mode), true);
 }
 
 /// \brief Getter for RectangleShape

@@ -115,7 +115,6 @@ add_executable(${PROJECT_NAME} main.cpp
         headers/Maze.hpp
         headers/Cell.hpp
         headers/Player.hpp
-        headers/Textures.hpp
         src/Monster.cpp
         headers/Monster.hpp
         src/Monsters/SentryPaws.cpp
@@ -129,7 +128,9 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Monsters/RoamingRiddler.cpp
         headers/Monsters/RoamingRiddler.hpp
         src/Monsters/BlinkingBanshee.cpp
-        headers/Monsters/BlinkingBanshee.hpp)
+        headers/Monsters/BlinkingBanshee.hpp
+        src/TextureManager.cpp
+        headers/TextureManager.hpp)
 
 ###############################################################################
 

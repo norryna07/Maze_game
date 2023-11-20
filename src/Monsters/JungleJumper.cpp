@@ -4,6 +4,8 @@
 
 #include "../../headers/Monsters/JungleJumper.hpp"
 
+Cell_mode JungleJumper::type = JUNGLE_JUMPER;
+
 JungleJumper::JungleJumper(unsigned int x, unsigned int y) : Monster(x, y) {
 }
 

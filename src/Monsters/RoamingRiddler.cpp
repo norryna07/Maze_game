@@ -4,6 +4,8 @@
 
 #include "../../headers/Monsters/RoamingRiddler.hpp"
 
+Cell_mode RoamingRiddler::type = ROAMING_RIDDLER;
+
 RoamingRiddler::RoamingRiddler(const std::vector<sf::Vector2<unsigned int>> &path)
         : Monster(path[0].x, path[0].y), path(path) {
     poz = 0;

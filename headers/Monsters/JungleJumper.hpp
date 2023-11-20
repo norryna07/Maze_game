@@ -17,6 +17,6 @@ public:
     void move(Maze &maze) override;
 };
 
-Cell_mode JungleJumper::type = JUNGLE_JUMPER;
+
 
 #endif //OOP_JUNGLEJUMPER_HPP

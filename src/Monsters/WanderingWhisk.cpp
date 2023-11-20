@@ -4,6 +4,10 @@
 
 #include "../../headers/Monsters/WanderingWhisk.hpp"
 
+int WanderingWhisk::x_dir[4] = {0, 0, -1, 1};
+int WanderingWhisk::y_dir[4] = {-1, 1, 0, 0};
+Cell_mode WanderingWhisk::type = WANDERING_WHISK;
+
 WanderingWhisk::WanderingWhisk(unsigned int x, unsigned int y) : Monster(x, y) {}
 
 void WanderingWhisk::move(Maze &maze) {

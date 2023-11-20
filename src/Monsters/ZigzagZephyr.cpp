@@ -4,6 +4,8 @@
 
 #include "../../headers/Monsters/ZigzagZephyr.hpp"
 
+Cell_mode ZigzagZephyr::type = ZIGZAG_ZEPHYR;
+
 ZigzagZephyr::ZigzagZephyr(unsigned int x, unsigned int y, bool direction) : Monster(x, y), direction(direction) {
     if (direction == UP_LEFT) x_dir = -1, y_dir = -1;
     else x_dir = 1, y_dir = 1;

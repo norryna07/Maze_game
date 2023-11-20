@@ -17,6 +17,5 @@ public:
     void move(Maze &maze) override;
 };
 
-Cell_mode BlinkingBanshee::type = BLINKING_BANSHEE;
 
 #endif //OOP_BLINKINGBANSHEE_HPP

@@ -4,7 +4,7 @@
 
 #ifndef OOP_MONSTER_HPP
 #define OOP_MONSTER_HPP
-#include "Textures.hpp"
+#include "TextureManager.hpp"
 #include "Maze.hpp"
 
 /// \brief Abstract class for monsters from maze.

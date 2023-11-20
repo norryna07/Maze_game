@@ -21,6 +21,5 @@ public:
     void move(Maze &maze) override;
 };
 
-Cell_mode RoamingRiddler::type = ROAMING_RIDDLER;
 
 #endif //OOP_ROAMINGRIDDLER_HPP

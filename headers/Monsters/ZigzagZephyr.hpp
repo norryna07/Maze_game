@@ -25,6 +25,4 @@ public:
     void move(Maze &maze) override;
 };
 
-Cell_mode ZigzagZephyr::type = ZIGZAG_ZEPHYR;
-
 #endif //OOP_ZIGZAGZEPHYR_HPP

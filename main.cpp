@@ -21,7 +21,7 @@ int main() {
     window.create(sf::VideoMode({500, 500}), "Maze game", sf::Style::Default);
     window.setVerticalSyncEnabled(true);
     //window.setFramerateLimit(60);
-    Textures::load();
+    TextureManager::load();
     Maze m(5, 5, window.getSize().x, window.getSize().y, "..\\tastatura.txt");
     Player p;
     std::cout << m;

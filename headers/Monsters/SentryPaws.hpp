@@ -18,7 +18,6 @@ public:
     void move(Maze &maze) override;
 };
 
-Cell_mode SentryPaws::type = SENTRY_PAWS;
 
 
 #endif //OOP_SENTRYPAWS_HPP

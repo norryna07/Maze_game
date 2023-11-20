@@ -6,7 +6,7 @@
 #ifndef OOP_CELL_H
 #define OOP_CELL_H
 #include <SFML/Graphics.hpp>
-#include "Textures.hpp"
+#include "TextureManager.hpp"
 #include <ostream>
 
 

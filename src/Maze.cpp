@@ -94,7 +94,7 @@ bool Maze::move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y) {
 /// \param x the x coordinate of the cell
 /// \param y the y coordinate of the cell
 /// \return true - if the cell is free, false - otherwise
-inline bool Maze::free_cell(int x, int y) {
+bool Maze::free_cell(int x, int y) {
     return matrix[x][y].getMode() != WALL;
 }
 
