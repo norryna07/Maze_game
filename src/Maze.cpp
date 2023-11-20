@@ -69,7 +69,7 @@ std::ostream &operator<<(std::ostream &os, const Maze &maze) {
 /// \param x - coordinate on X axis
 /// \param y - coordinate on Y axis
 /// \return true if the cell is inside
-bool Maze::inside(int x, int y) {
+inline bool Maze::inside(int x, int y) const {
     return x >= 0 && x < nr_col && y >= 0 && y < nr_lin;
 }
 
@@ -94,7 +94,7 @@ bool Maze::move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y) {
 /// \param x the x coordinate of the cell
 /// \param y the y coordinate of the cell
 /// \return true - if the cell is free, false - otherwise
-bool Maze::free_cell(int x, int y) {
+inline bool Maze::free_cell(int x, int y) {
     return matrix[x][y].getMode() != WALL;
 }
 

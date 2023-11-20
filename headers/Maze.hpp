@@ -20,8 +20,8 @@ public:
     ~Maze() = default;
     void draw(sf::RenderWindow& window);
     bool move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y);
-    inline bool inside(int x, int y);
-    inline bool free_cell(int x, int y);
+    inline bool inside(int x, int y) const;
+    inline bool free_cell(int x, int y);// { return matrix[x][y].getMode() != WALL;}
     friend std::ostream &operator<<(std::ostream &os, const Maze &maze);
 };
 
