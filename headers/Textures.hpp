@@ -8,6 +8,11 @@
 
 #include <SFML/Graphics.hpp>
 
+enum Cell_mode {
+    FREE, WALL, PLAYER, MONSTER,
+    SENTRY_PAWS, JUNGLE_JUMPER, ZIGZAG_ZEPHYR, WANDERING_WHISK, ROAMING_RIDDLER, BLINKING_BANSHEE
+};
+
 class Textures {
     sf::Texture free_texture, wall_texture;
     sf::Texture player_texture, monster_texture;

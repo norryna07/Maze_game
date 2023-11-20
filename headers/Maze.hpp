@@ -21,6 +21,7 @@ public:
     void draw(sf::RenderWindow& window);
     bool move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y);
     inline bool inside(int x, int y);
+    inline bool free_cell(int x, int y);
     friend std::ostream &operator<<(std::ostream &os, const Maze &maze);
 };
 

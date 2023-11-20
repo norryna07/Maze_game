@@ -12,7 +12,7 @@
 #include <iostream>
 
 class Player {
-    int x = 0, y = 0;
+    unsigned int x = 0, y = 0;
 public:
     Player() = default;
     ~Player() = default;
