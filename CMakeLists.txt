@@ -130,7 +130,9 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Monsters/BlinkingBanshee.cpp
         headers/Monsters/BlinkingBanshee.hpp
         src/TextureManager.cpp
-        headers/TextureManager.hpp)
+        headers/TextureManager.hpp
+        src/Level.cpp
+        headers/Level.hpp)
 
 ###############################################################################
 
