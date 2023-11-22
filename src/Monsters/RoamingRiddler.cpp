@@ -1,17 +1,22 @@
 //
-// Created by norin on 11/19/2023.
+// Created by Norina Alexandru on 11/19/2023.
+// cpp file for RoamingRiddler class.
 //
 
 #include "../../headers/Monsters/RoamingRiddler.hpp"
 
 Cell_mode RoamingRiddler::type = ROAMING_RIDDLER;
 
+/// \brief Constructor for RoamingRiddler
+/// \param path the fixed path of the Monster
 RoamingRiddler::RoamingRiddler(const std::vector<sf::Vector2<unsigned int>> &path)
         : Monster(path[0].x, path[0].y), path(path) {
     poz = 0;
     step = 1;
 }
 
+/// \brief Move function for RoamingRiddler, move forward on the path.
+/// \param maze the maze where the monster moves
 void RoamingRiddler::move(Maze &maze) {
     maze.move(type, path[poz].x, path[poz].y, path[poz + step].x, path[poz + step].y);
     poz += step;

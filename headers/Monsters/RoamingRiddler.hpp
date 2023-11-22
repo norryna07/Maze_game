@@ -1,5 +1,6 @@
 //
-// Created by norin on 11/19/2023.
+// Created by Norina Alexandru on 11/19/2023.
+// hpp file for RoamingRiddler class. A type of monster that follow a fixed path.
 //
 
 #ifndef OOP_ROAMINGRIDDLER_HPP
@@ -10,6 +11,7 @@
 
 #include "../Monster.hpp"
 
+/// \brief A type of monster that follow a fixed path in the maze.
 class RoamingRiddler : public Monster{
     static Cell_mode type;
     int poz;

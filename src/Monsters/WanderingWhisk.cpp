@@ -1,5 +1,6 @@
 //
-// Created by norin on 11/19/2023.
+// Created by Norina Alexandru on 11/19/2023.
+// cpp file for WanderingWhisk class.
 //
 
 #include "../../headers/Monsters/WanderingWhisk.hpp"
@@ -8,8 +9,13 @@ int WanderingWhisk::x_dir[4] = {0, 0, -1, 1};
 int WanderingWhisk::y_dir[4] = {-1, 1, 0, 0};
 Cell_mode WanderingWhisk::type = WANDERING_WHISK;
 
+/// \brief Constructor for WanderingWhisk
+/// \param x initial x coordinate
+/// \param y initial y coordinate
 WanderingWhisk::WanderingWhisk(unsigned int x, unsigned int y) : Monster(x, y) {}
 
+/// \brief Move function for WanderingWhisk. Verify if one of the
+/// \param maze the maze where the monster moves
 void WanderingWhisk::move(Maze &maze) {
     int values[4];
     int nr_values = 0;

@@ -13,6 +13,7 @@
 
 #include "../Monster.hpp"
 
+/// \brief A type of monster that move in zigzag pattern.
 class ZigzagZephyr: public Monster{
     static Cell_mode type;
     int x_dir, y_dir;
@@ -20,8 +21,7 @@ class ZigzagZephyr: public Monster{
     bool step = Vertically;
     void change_direction();
 public:
-    ZigzagZephyr(unsigned int x, unsigned int y, bool direction);
-
+    ZigzagZephyr(unsigned int x, unsigned int y, bool direction = UP_LEFT);
     void move(Maze &maze) override;
 };
 

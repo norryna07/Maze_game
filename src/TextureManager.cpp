@@ -18,6 +18,11 @@ void TextureManager::load() {
         tex[1].loadFromFile("..\\images\\wall.png");
         tex[2].loadFromFile("..\\images\\player.png");
         tex[3].loadFromFile("..\\images\\monster.png");
+        tex[4].loadFromFile("..\\images\\monster.png");
+        tex[5].loadFromFile("..\\images\\monster.png");
+        tex[6].loadFromFile("..\\images\\monster.png");
+        tex[7].loadFromFile("..\\images\\monster.png");
+        tex[8].loadFromFile("..\\images\\monster.png");
         alreadyLoaded = true;
     }
 

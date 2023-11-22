@@ -20,6 +20,8 @@ class TextureManager {
 public:
     static sf::Texture* getTexture(Cell_mode type);
     static void load();
+    TextureManager(const TextureManager &other) = delete;
+    TextureManager operator=(const TextureManager &other) = delete;
 };
 
 

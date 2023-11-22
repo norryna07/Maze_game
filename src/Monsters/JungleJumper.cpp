@@ -1,5 +1,6 @@
 //
-// Created by norin on 11/19/2023.
+// Created by Norina Alexandru on 11/19/2023.
+// cpp file for JungleJumper class.
 //
 
 #include "../../headers/Monsters/JungleJumper.hpp"

@@ -68,8 +68,7 @@ std::ostream &operator<<(std::ostream &os, const Maze &maze) {
 /// \brief A bool function that verify if a cell is inside the maze's matrix.
 /// \param x - coordinate on X axis
 /// \param y - coordinate on Y axis
-/// \return true if the cell is inside
-inline bool Maze::inside(int x, int y) const {
+bool Maze::inside(int x, int y) {
     return x >= 0 && x < nr_col && y >= 0 && y < nr_lin;
 }
 
@@ -82,11 +81,16 @@ inline bool Maze::inside(int x, int y) const {
 /// \param new_y - the new Y coordinate
 /// \return true is the character was able to move, a character can move in a WALL cell, or outside the matrix
 bool Maze::move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y) {
+
     if (!inside(new_x, new_y)) return false;
     if (matrix[old_y][old_x].getMode() == WALL) return false;
     if (matrix[new_y][new_x].getMode() == WALL) return false;
-    matrix[old_y][old_x].setMode(FREE);
+    if (matrix[new_x][new_y].getMode() != FREE) {
+        //conflict function - if player and one monster get in the same cell, the player lose
+        return false;
+    }
     matrix[new_y][new_x].setMode(mod);
+    if (old_x != new_x || old_y != new_y)  matrix[old_y][old_x].setMode(FREE);
     return true;
 }
 
@@ -95,6 +99,6 @@ bool Maze::move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y) {
 /// \param y the y coordinate of the cell
 /// \return true - if the cell is free, false - otherwise
 bool Maze::free_cell(int x, int y) {
-    return matrix[x][y].getMode() != WALL;
+    return matrix[x][y].getMode() == FREE || matrix[x][y].getMode() == PLAYER;
 }
 

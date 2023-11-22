@@ -25,7 +25,6 @@ int main() {
     Maze m(5, 5, window.getSize().x, window.getSize().y, "..\\tastatura.txt");
     Player p;
     std::cout << m;
-
     while(window.isOpen()) {
         p.move(window, m);
         using namespace std::chrono_literals;
