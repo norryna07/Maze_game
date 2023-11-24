@@ -18,10 +18,16 @@ RoamingRiddler::RoamingRiddler(const std::vector<sf::Vector2<unsigned int>> &pat
 /// \brief Move function for RoamingRiddler, move forward on the path.
 /// \param maze the maze where the monster moves
 void RoamingRiddler::move(Maze &maze) {
-    maze.move(type, path[poz].x, path[poz].y, path[poz + step].x, path[poz + step].y);
-    poz += step;
-    if (poz == path.size() - 1  && step == 1) step = -1;
-    else if (poz == 0 && step == -1) step = 1;
+    try {
+        maze.move(type, path[poz].x, path[poz].y, path[poz + step].x, path[poz + step].y);
+        poz += step;
+        if (poz == path.size() - 1 && step == 1) step = -1;
+        else if (poz == 0 && step == -1) step = 1;
+    } catch (OutMatrixException& e) {
+        std::cerr << "Cell:" << path[poz+step].x << ' ' << path[poz+step].y << ", error: " << e.what() << '\n';
+    } catch (BlockedCellException& e) {
+        std::cerr << "Cell:" << path[poz+step].x << ' ' << path[poz+step].y << ", error: " << e.what() << '\n';
+    }
 }
 
 

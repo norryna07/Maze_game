@@ -15,40 +15,40 @@ std::ostream &operator<<(std::ostream &os, const Player &player) {
 }
 
 /// \brief Move the player on the screen based on key that is press on keyboard.
-/// \param window - a RenderWindow reference where the game that place
+/// \param e - a Event that if is keypress will determine where the player moves
 /// \param m - a reference to the maze where the player is moving
-void Player::move(sf::RenderWindow &window, Maze &m) {
-    sf::Event e;
+void Player::move(const sf::Event& e, Maze &m) {
+    ///the event is not a Key Pressed, so don't affect the player
+    if (e.type != sf::Event::KeyPressed) return;
     int lx, ly;
     lx = this->x;
     ly = this->y;
-    while(window.pollEvent(e)) {
-        switch (e.type) {
-            case sf::Event::Closed:
-                window.close();
-                break;
-            case sf::Event::KeyPressed:
-                switch(e.key.code) {
-                    case sf::Keyboard::Left:
-                        lx --;
-                        break;
-                    case sf::Keyboard::Right:
-                        lx ++;
-                        break;
-                    case sf::Keyboard::Up:
-                        ly --;
-                        break;
-                    case sf::Keyboard::Down:
-                        ly ++;
-                        break;
-                    default:
-                        break;
-                }
-                if (m.move(PLAYER, x, y, lx, ly)) {x = lx; y = ly;}
-                std::cout << *this;
-                break;
-            default:
-                break;
-        }
+    switch (e.key.code) {
+        case sf::Keyboard::Left:
+            lx--;
+            break;
+        case sf::Keyboard::Right:
+            lx++;
+            break;
+        case sf::Keyboard::Up:
+            ly--;
+            break;
+        case sf::Keyboard::Down:
+            ly++;
+            break;
+        default:
+            return;
     }
+    try {
+        m.move(PLAYER, x, y, lx, ly);
+    } catch(BlockedCellException& e) {
+        std::cerr << x <<' ' << y <<' '<<lx <<' '<< ly<< e.what();
+        return;
+    } catch (OutMatrixException& e) {
+        std::cerr << x <<' ' << y <<' '<<lx <<' '<< ly<< e.what();
+        return;
+    }
+    x = lx;
+    y = ly;
+
 }

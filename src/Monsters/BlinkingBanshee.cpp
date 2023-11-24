@@ -19,10 +19,19 @@ BlinkingBanshee::BlinkingBanshee(unsigned int x, unsigned int y) : Monster(x, y)
 void BlinkingBanshee::move(Maze &maze) {
     int poz[12];
     int nr_poz = 0;
-    for (int i = 0; i < 12; ++i)
-        if (maze.inside(x + x_dir[i], y + y_dir[i]) &&
-            maze.free_cell(x + x_dir[i], y + y_dir[i]))
-            poz[nr_poz++] = i;
+    for (int i = 0; i < 12; ++i) {
+        try{
+            maze.inside(x + x_dir[i], y + y_dir[i]);
+            maze.free_cell(x + x_dir[i], y + y_dir[i]);
+        } catch(OutMatrixException& e){
+            std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
+            continue;
+        } catch(BlockedCellException& e) {
+            std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
+            continue;
+        }
+        poz[nr_poz++] = i;
+    }
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     int pos = std::rand() % nr_poz;
     pos = poz[pos];

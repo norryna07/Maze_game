@@ -7,9 +7,11 @@
 #define OOP_MAZE_H
 #include <vector>
 #include <string>
-#include "Cell.hpp"
+#include <fstream>
+#include <iostream>
 #include <SFML/Graphics.hpp>
-#include <ostream>
+#include "Cell.hpp"
+#include "Exceptions.hpp"
 
 class Maze {
     std::vector <std::vector <Cell>> matrix;

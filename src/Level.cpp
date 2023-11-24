@@ -29,7 +29,6 @@ Level::Level(int difficulty, int dimX, int dimY, const std::string& filename) :
                     break;
                 case JUNGLE_JUMPER:
                     monsters.emplace_back(std::make_shared<JungleJumper>(x, y));
-                    break;
                 case ZIGZAG_ZEPHYR:
                     monsters.emplace_back(std::make_shared<ZigzagZephyr>(x, y));
                     break;
@@ -49,8 +48,31 @@ Level::Level(int difficulty, int dimX, int dimY, const std::string& filename) :
 }
 
 void Level::update(sf::RenderWindow& window) {
-    player.move(window, maze);
-    for (const auto& monster:monsters) {
-        monster->move(maze);
+    sf::Event e;
+    while(window.pollEvent(e)) {
+        using namespace std::chrono_literals;
+        std::this_thread::sleep_for(200ms);
+        try {
+            switch (e.type) {
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+                case sf::Event::KeyPressed:
+                    player.move(e, maze);
+                    break;
+                default:
+                    break;
+            }
+            for (const auto &monster: monsters) {
+                monster->move(maze);
+            }
+        } catch (GameOverException& e) {
+            std::cerr << e.what();
+            window.close();
+            return;
+        }
+        window.clear();
+        maze.draw(window);
+        window.display();
     }
 }

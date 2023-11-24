@@ -14,7 +14,7 @@
 /// \brief A type of monster that follow a fixed path in the maze.
 class RoamingRiddler : public Monster{
     static Cell_mode type;
-    int poz;
+    unsigned int poz;
     int step;
     std::vector <sf::Vector2<unsigned int>> path;
 public:

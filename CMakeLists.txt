@@ -132,7 +132,8 @@ add_executable(${PROJECT_NAME} main.cpp
         src/TextureManager.cpp
         headers/TextureManager.hpp
         src/Level.cpp
-        headers/Level.hpp)
+        headers/Level.hpp
+        headers/Exceptions.hpp)
 
 ###############################################################################
 

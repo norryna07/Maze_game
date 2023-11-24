@@ -12,11 +12,4 @@ SentryPaws::SentryPaws(unsigned int x, unsigned int y) : Monster(x, y) {
 
 /// \brief  Move function is empty because the Sentry Paws stays in a single place.
 /// \param maze where the monster moves
-void SentryPaws::move(Maze &maze) {
-    static bool alreadySet = false;
-    if (!alreadySet) {
-        maze.move(type, x, y, x, y);
-        alreadySet = true;
-    }
-
-}
+void SentryPaws::move(Maze &maze) {}

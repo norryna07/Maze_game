@@ -17,7 +17,7 @@ public:
     Player() = default;
     ~Player() = default;
     friend std::ostream &operator<<(std::ostream &os, const Player &player);
-    void move(sf::RenderWindow& window, Maze& m);
+    void move(const sf::Event& e, Maze& m);
 };
 
 
