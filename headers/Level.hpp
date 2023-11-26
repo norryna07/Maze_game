@@ -16,13 +16,12 @@
 
 #define FactorDifficulty 5
 
-
+/// \brief Level class will store information about each level from game: maze, player and a vector of monsters.
 class Level {
     Player player;
     Maze maze;
     std::vector<std::shared_ptr<Monster>> monsters;
     int score;
-    int difficulty;
 public:
     Level(int difficulty, int dimX, int dimY, const std::string &filename = "");
 

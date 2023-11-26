@@ -21,7 +21,7 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Player &player);
 
-    void move(const sf::Event &e, Maze &m);
+    bool move(const sf::Event &e, Maze &m);
 };
 
 

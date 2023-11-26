@@ -12,9 +12,13 @@
 #include "../headers/Monsters/ZigzagZephyr.hpp"
 #include <fstream>
 
+/// \brief Construction for Level class
+/// \param difficulty the difficulty of the level
+/// \param dimX dimension X of maze
+/// \param dimY dimension Y of maze
+/// \param filename where the maze is store
 Level::Level(int difficulty, int dimX, int dimY, const std::string &filename) :
-        maze(FactorDifficulty * difficulty, FactorDifficulty * difficulty, dimX, dimY, filename),
-        difficulty(difficulty) {
+        maze(FactorDifficulty * difficulty, FactorDifficulty * difficulty, dimX, dimY, filename){
     score = 0;
     std::ifstream fin(filename);
     int n = FactorDifficulty * difficulty;
@@ -29,6 +33,7 @@ Level::Level(int difficulty, int dimX, int dimY, const std::string &filename) :
                     break;
                 case JUNGLE_JUMPER:
                     monsters.emplace_back(std::make_shared<JungleJumper>(x, y));
+                    break;
                 case ZIGZAG_ZEPHYR:
                     monsters.emplace_back(std::make_shared<ZigzagZephyr>(x, y));
                     break;
@@ -47,6 +52,8 @@ Level::Level(int difficulty, int dimX, int dimY, const std::string &filename) :
         }
 }
 
+/// \brief Will update the maze if the player moves and if the monsters moves.
+/// \param window Where the maze is displayed.
 void Level::update(sf::RenderWindow &window) {
     sf::Event e;
     while (window.pollEvent(e)) {
@@ -58,7 +65,10 @@ void Level::update(sf::RenderWindow &window) {
                     window.close();
                     break;
                 case sf::Event::KeyPressed:
-                    player.move(e, maze);
+                    if (player.move(e, maze)) {
+                        score++;
+                        std::cout << "Actual number of steps: " << score << '\n';
+                    }
                     break;
                 default:
                     break;
@@ -66,8 +76,8 @@ void Level::update(sf::RenderWindow &window) {
             for (const auto &monster: monsters) {
                 monster->move(maze);
             }
-        } catch (GameOverException &e) {
-            std::cerr << e.what();
+        } catch (GameOverException &ex) {
+            std::cerr << ex.what();
             window.close();
             return;
         }

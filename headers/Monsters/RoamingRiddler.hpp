@@ -19,7 +19,8 @@ class RoamingRiddler : public Monster {
     int step;
     std::vector<sf::Vector2<unsigned int>> path;
 public:
-    RoamingRiddler(const std::vector<sf::Vector2<unsigned int>> &path);
+    explicit RoamingRiddler(const std::vector<sf::Vector2<unsigned int>> &path);
+
 
     void move(Maze &maze) override;
 };
