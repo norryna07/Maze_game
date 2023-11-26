@@ -12,22 +12,27 @@
 /// \param dimX - dimension on X axis
 /// \param dimY - dimension on Y axis
 /// \param filename - a path to a file where is a matrix that contain just 0 and 1 values: \n   0 - a free cell, 1 - a wall cell
-Maze::Maze(const int nrLin, const int nrCol, const int dimX, const int dimY, const std::string& filename) : nr_lin(nrLin), nr_col(nrCol),
-                                                                               dim(dimX, dimY), dim_cell(dimX/nrCol, dimY/nrLin) {
+Maze::Maze(const int nrLin, const int nrCol, const int dimX, const int dimY, const std::string &filename) : nr_lin(
+        nrLin), nr_col(nrCol),
+                                                                                                            dim(dimX,
+                                                                                                                dimY),
+                                                                                                            dim_cell(
+                                                                                                                    dimX /
+                                                                                                                    nrCol,
+                                                                                                                    dimY /
+                                                                                                                    nrLin) {
     matrix.resize(nr_lin, std::vector<Cell>(nr_col)); ///resize the matrix
     if (filename.empty()) { ///if the filename is empty will create a maze where all cells are free.
         for (int i = 0; i < nr_lin; ++i)
             for (int j = 0; j < nr_col; ++j)
                 matrix[i][j].setDimensions(i, j, dim_cell.x, dim_cell.y);
-    }
-    else {
+    } else {
         std::ifstream fin(filename);
         int type;
         for (int i = 0; i < nr_lin; ++i)
-            for (int j = 0; j < nr_col; ++j)
-            {
+            for (int j = 0; j < nr_col; ++j) {
                 fin >> type;
-                Cell_mode mod = (Cell_mode)type;
+                Cell_mode mod = (Cell_mode) type;
                 matrix[i][j].setDimensions(i, j, dim_cell.x, dim_cell.y);
                 matrix[i][j].setMode(mod);
             }
@@ -68,7 +73,7 @@ bool Maze::inside(int x, int y) {
     if (x < 0) throw OutMatrixException("negative x coordinate");
     if (y < 0) throw OutMatrixException("negative y coordinate");
     if (x >= nr_col) throw OutMatrixException("x coordinate bigger than matrix maximum");
-    if (y >= nr_lin) throw  OutMatrixException("y coordinate bigger that matrix maximum");
+    if (y >= nr_lin) throw OutMatrixException("y coordinate bigger that matrix maximum");
     return true;
 }
 
@@ -84,7 +89,7 @@ bool Maze::move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y) {
     try {
         inside(old_x, old_x);
         inside(new_x, new_y);
-    } catch(OutMatrixException& e) {
+    } catch (OutMatrixException &e) {
         throw e;
     }
     ///verify special case: First adding a monster on table
@@ -101,7 +106,7 @@ bool Maze::move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y) {
         }
     }
     matrix[new_y][new_x].setMode(mod);
-    if (old_x != new_x || old_y != new_y)  matrix[old_y][old_x].setMode(FREE);
+    if (old_x != new_x || old_y != new_y) matrix[old_y][old_x].setMode(FREE);
     return true;
 }
 

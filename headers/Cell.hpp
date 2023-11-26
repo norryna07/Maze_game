@@ -5,10 +5,10 @@
 
 #ifndef OOP_CELL_H
 #define OOP_CELL_H
+
 #include <SFML/Graphics.hpp>
 #include "TextureManager.hpp"
 #include <ostream>
-
 
 
 class Cell {
@@ -16,16 +16,22 @@ class Cell {
     Cell_mode mode;
 public:
     Cell(Cell_mode mode = FREE, int lin = 0, int col = 0, int dimX = 100, int dimY = 100);
+
     ~Cell() = default;
+
     Cell(const Cell &other);
 
     void setMode(Cell_mode lmode);
-    void setDimensions(int lin, int col,unsigned int dim_x,unsigned int dim_y);
+
+    void setDimensions(int lin, int col, unsigned int dim_x, unsigned int dim_y);
+
     const sf::RectangleShape &getRect() const;
+
     Cell_mode getMode() const;
 
     friend std::ostream &operator<<(std::ostream &os, const Cell &Cell);
-    Cell& operator=(const Cell& other);
+
+    Cell &operator=(const Cell &other);
 };
 
 

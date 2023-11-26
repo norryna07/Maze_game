@@ -41,9 +41,9 @@ void ZigzagZephyr::move(Maze &maze) {
             return;
 
         }
-    } catch (OutMatrixException& e) {
+    } catch (OutMatrixException &e) {
         std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
-    } catch (BlockedCellException& e) {
+    } catch (BlockedCellException &e) {
         std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
     }
 }
@@ -53,8 +53,7 @@ void ZigzagZephyr::change_direction() {
         direction = DOWN_RIGHT;
         x_dir = 1;
         y_dir = 1;
-    }
-    else {
+    } else {
         direction = UP_LEFT;
         x_dir = -1;
         y_dir = -1;

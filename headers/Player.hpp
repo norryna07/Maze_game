@@ -5,6 +5,7 @@
 
 #ifndef OOP_PLAYER_H
 #define OOP_PLAYER_H
+
 #include "Maze.hpp"
 #include <SFML/Graphics.hpp>
 
@@ -15,9 +16,12 @@ class Player {
     unsigned int x = 0, y = 0;
 public:
     Player() = default;
+
     ~Player() = default;
+
     friend std::ostream &operator<<(std::ostream &os, const Player &player);
-    void move(const sf::Event& e, Maze& m);
+
+    void move(const sf::Event &e, Maze &m);
 };
 
 

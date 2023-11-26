@@ -4,16 +4,15 @@
 
 #include "../headers/TextureManager.hpp"
 
-std::vector <sf::Texture> TextureManager::tex(9);
+std::vector<sf::Texture> TextureManager::tex(9);
 
 sf::Texture *TextureManager::getTexture(Cell_mode type) {
-    return &(tex[(int)type]);
+    return &(tex[(int) type]);
 }
 
 void TextureManager::load() {
     static bool alreadyLoaded = false;
-    if (!alreadyLoaded)
-    {
+    if (!alreadyLoaded) {
         tex[0].loadFromFile("..\\images\\grass.jpg");
         tex[1].loadFromFile("..\\images\\wall.png");
         tex[2].loadFromFile("..\\images\\player.png");

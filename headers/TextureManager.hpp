@@ -16,11 +16,16 @@ enum Cell_mode {
 
 class TextureManager {
     static std::vector<sf::Texture> tex;
+
     TextureManager() = default;
+
 public:
-    static sf::Texture* getTexture(Cell_mode type);
+    static sf::Texture *getTexture(Cell_mode type);
+
     static void load();
+
     TextureManager(const TextureManager &other) = delete;
+
     TextureManager operator=(const TextureManager &other) = delete;
 };
 

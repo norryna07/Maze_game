@@ -5,6 +5,7 @@
 
 #ifndef OOP_MAZE_H
 #define OOP_MAZE_H
+
 #include <vector>
 #include <string>
 #include <fstream>
@@ -14,15 +15,20 @@
 #include "Exceptions.hpp"
 
 class Maze {
-    std::vector <std::vector <Cell>> matrix;
+    std::vector<std::vector<Cell>> matrix;
     const int nr_lin, nr_col;
     const sf::Vector2u dim, dim_cell;
 public:
-    Maze(int nrLin, int nrCol, int dimX, int dimY,const std::string& filename = "");
+    Maze(int nrLin, int nrCol, int dimX, int dimY, const std::string &filename = "");
+
     ~Maze() = default;
-    void draw(sf::RenderWindow& window);
+
+    void draw(sf::RenderWindow &window);
+
     bool move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y);
+
     bool inside(int x, int y);
+
     bool free_cell(int x, int y);// { return matrix[x][y].getMode() != WALL;}
     friend std::ostream &operator<<(std::ostream &os, const Maze &maze);
 };

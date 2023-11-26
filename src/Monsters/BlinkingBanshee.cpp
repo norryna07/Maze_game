@@ -6,7 +6,7 @@
 #include "../../headers/Monsters/BlinkingBanshee.hpp"
 
 Cell_mode BlinkingBanshee::type = BLINKING_BANSHEE;
-int BlinkingBanshee::x_dir[12] = {0, -1, 0, 1, -2, -1, 1, 2,-1,0, 1, 0};
+int BlinkingBanshee::x_dir[12] = {0, -1, 0, 1, -2, -1, 1, 2, -1, 0, 1, 0};
 int BlinkingBanshee::y_dir[12] = {-2, -1, -1, -1, 0, 0, 0, 0, 1, 1, 1, 2};
 
 /// \brief Constructor for BlinkingBanshee
@@ -20,13 +20,13 @@ void BlinkingBanshee::move(Maze &maze) {
     int poz[12];
     int nr_poz = 0;
     for (int i = 0; i < 12; ++i) {
-        try{
+        try {
             maze.inside(x + x_dir[i], y + y_dir[i]);
             maze.free_cell(x + x_dir[i], y + y_dir[i]);
-        } catch(OutMatrixException& e){
+        } catch (OutMatrixException &e) {
             std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
             continue;
-        } catch(BlockedCellException& e) {
+        } catch (BlockedCellException &e) {
             std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
             continue;
         }

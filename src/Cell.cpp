@@ -12,9 +12,9 @@
 /// \param col - column of cell
 /// \param dimX - dimension on X axis
 /// \param dimY - dimension on Y axis
-Cell::Cell(Cell_mode mode, const int lin,const int col,const int dimX,const int dimY) : mode(mode) {
+Cell::Cell(Cell_mode mode, const int lin, const int col, const int dimX, const int dimY) : mode(mode) {
     this->rect.setSize({static_cast<float>(dimX), static_cast<float>(dimY)}); ///set the size for RectangleShape
-    this->rect.setPosition({static_cast<float>(col*dimX), static_cast<float>(lin*dimY)}); ///set the position
+    this->rect.setPosition({static_cast<float>(col * dimX), static_cast<float>(lin * dimY)}); ///set the position
     this->rect.setTexture(TextureManager::getTexture(mode));
 }
 
@@ -42,7 +42,7 @@ std::ostream &operator<<(std::ostream &os, const Cell &cell) {
     int lin = static_cast<int>(cell.rect.getPosition().y) / dim_y;
     int col = static_cast<int>(cell.rect.getPosition().x) / dim_x;
     os << "lin: " << lin << " col: " << col << " dim_x: " << dim_x << " dim_y: " << dim_y;
-    os  << " mode: ";
+    os << " mode: ";
     switch (cell.mode) {
         case FREE:
             os << "FREE";
@@ -65,9 +65,9 @@ std::ostream &operator<<(std::ostream &os, const Cell &cell) {
 /// \param col - cell's column
 /// \param dim_x - dimension on X axis
 /// \param dim_y - dimension on Y axis
-void Cell::setDimensions(int lin, int col,unsigned int dim_x,unsigned int dim_y) {
+void Cell::setDimensions(int lin, int col, unsigned int dim_x, unsigned int dim_y) {
     this->rect.setSize({static_cast<float>(dim_x), static_cast<float>(dim_y)});
-    this->rect.setPosition({static_cast<float>(col*dim_x), static_cast<float>(lin*dim_y)});
+    this->rect.setPosition({static_cast<float>(col * dim_x), static_cast<float>(lin * dim_y)});
 }
 
 /// \brief Copy constructor for cell class.

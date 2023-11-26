@@ -17,9 +17,9 @@ class BlinkingBanshee : public Monster {
     static int x_dir[12];
     static int y_dir[12];
 public:
-    BlinkingBanshee (unsigned int x, unsigned int y);
+    BlinkingBanshee(unsigned int x, unsigned int y);
 
-    void move (Maze &maze) override;
+    void move(Maze &maze) override;
 };
 
 

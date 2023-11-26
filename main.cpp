@@ -11,9 +11,9 @@
 
 
 int main() {
-    #ifdef __linux__
+#ifdef __linux__
     XInitThreads();
-    #endif
+#endif
 
     sf::RenderWindow window;
     // NOTE: sync with env variable APP_WINDOW from .github/workflows/cmake.yml:30

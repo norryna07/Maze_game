@@ -17,7 +17,7 @@ std::ostream &operator<<(std::ostream &os, const Player &player) {
 /// \brief Move the player on the screen based on key that is press on keyboard.
 /// \param e - a Event that if is keypress will determine where the player moves
 /// \param m - a reference to the maze where the player is moving
-void Player::move(const sf::Event& e, Maze &m) {
+void Player::move(const sf::Event &e, Maze &m) {
     ///the event is not a Key Pressed, so don't affect the player
     if (e.type != sf::Event::KeyPressed) return;
     int lx, ly;
@@ -41,11 +41,11 @@ void Player::move(const sf::Event& e, Maze &m) {
     }
     try {
         m.move(PLAYER, x, y, lx, ly);
-    } catch(BlockedCellException& e) {
-        std::cerr << x <<' ' << y <<' '<<lx <<' '<< ly<< e.what();
+    } catch (BlockedCellException &ex) {
+        std::cerr << x << ' ' << y << ' ' << lx << ' ' << ly << ex.what() << '\n';
         return;
-    } catch (OutMatrixException& e) {
-        std::cerr << x <<' ' << y <<' '<<lx <<' '<< ly<< e.what();
+    } catch (OutMatrixException &ex) {
+        std::cerr << x << ' ' << y << ' ' << lx << ' ' << ly << ex.what() << '\n';
         return;
     }
     x = lx;

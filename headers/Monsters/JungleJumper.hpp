@@ -9,14 +9,13 @@
 #include "../Monster.hpp"
 
 /// \brief Jungle Jumper is another type of monster. He loves leaping from one grassy patch to another vertically.
-class JungleJumper: public Monster{
+class JungleJumper : public Monster {
     static Cell_mode type;
 public:
     JungleJumper(unsigned int x, unsigned int y);
 
     void move(Maze &maze) override;
 };
-
 
 
 #endif //OOP_JUNGLEJUMPER_HPP

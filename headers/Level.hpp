@@ -13,18 +13,20 @@
 #include <thread>
 #include "Monster.hpp"
 #include "Player.hpp"
+
 #define FactorDifficulty 5
 
 
 class Level {
     Player player;
     Maze maze;
-    std::vector <std::shared_ptr<Monster>> monsters;
+    std::vector<std::shared_ptr<Monster>> monsters;
     int score;
     int difficulty;
 public:
-    Level(int difficulty, int dimX, int dimY, const std::string& filename = "");
-    void update(sf::RenderWindow& window);
+    Level(int difficulty, int dimX, int dimY, const std::string &filename = "");
+
+    void update(sf::RenderWindow &window);
 };
 
 

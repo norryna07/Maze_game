@@ -4,6 +4,7 @@
 
 #ifndef OOP_MONSTER_HPP
 #define OOP_MONSTER_HPP
+
 #include "TextureManager.hpp"
 #include "Maze.hpp"
 
@@ -13,10 +14,11 @@ protected:
     unsigned int x, y;
 public:
     Monster(unsigned int x, unsigned int y);
+
     virtual ~Monster() = default;
+
     virtual void move(Maze &maze) = 0;
 };
-
 
 
 #endif //OOP_MONSTER_HPP

@@ -23,10 +23,10 @@ void RoamingRiddler::move(Maze &maze) {
         poz += step;
         if (poz == path.size() - 1 && step == 1) step = -1;
         else if (poz == 0 && step == -1) step = 1;
-    } catch (OutMatrixException& e) {
-        std::cerr << "Cell:" << path[poz+step].x << ' ' << path[poz+step].y << ", error: " << e.what() << '\n';
-    } catch (BlockedCellException& e) {
-        std::cerr << "Cell:" << path[poz+step].x << ' ' << path[poz+step].y << ", error: " << e.what() << '\n';
+    } catch (OutMatrixException &e) {
+        std::cerr << "Cell:" << path[poz + step].x << ' ' << path[poz + step].y << ", error: " << e.what() << '\n';
+    } catch (BlockedCellException &e) {
+        std::cerr << "Cell:" << path[poz + step].x << ' ' << path[poz + step].y << ", error: " << e.what() << '\n';
     }
 }
 

@@ -12,4 +12,10 @@ SentryPaws::SentryPaws(unsigned int x, unsigned int y) : Monster(x, y) {
 
 /// \brief  Move function is empty because the Sentry Paws stays in a single place.
 /// \param maze where the monster moves
-void SentryPaws::move(Maze &maze) {}
+void SentryPaws::move(Maze &maze) {
+    try {
+        maze.inside(x, y);
+    } catch (OutMatrixException &ex) {
+        std::cerr << "Cell:" << x << ' ' << y << ", error: " << ex.what() << '\n';
+    }
+}

@@ -22,9 +22,9 @@ void JungleJumper::move(Maze &maze) {
             maze.move(type, x, y, x, y + 2);
             y += 2;
         }
-    } catch (OutMatrixException& e) {
+    } catch (OutMatrixException &e) {
         std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
-    } catch (BlockedCellException& e) {
+    } catch (BlockedCellException &e) {
         std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
     }
 }

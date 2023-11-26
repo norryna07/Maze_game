@@ -12,18 +12,18 @@
 #include "../headers/Monsters/ZigzagZephyr.hpp"
 #include <fstream>
 
-Level::Level(int difficulty, int dimX, int dimY, const std::string& filename) :
-    maze(FactorDifficulty*difficulty, FactorDifficulty*difficulty, dimX, dimY, filename),  difficulty(difficulty){
+Level::Level(int difficulty, int dimX, int dimY, const std::string &filename) :
+        maze(FactorDifficulty * difficulty, FactorDifficulty * difficulty, dimX, dimY, filename),
+        difficulty(difficulty) {
     score = 0;
-    std::ifstream fin (filename);
-    int n = FactorDifficulty*difficulty;
+    std::ifstream fin(filename);
+    int n = FactorDifficulty * difficulty;
     int type;
     /// y dimension in matrix represents the rows and x dimension in matrix represents the columns
     for (int y = 0; y < n; ++y)
-        for (int x = 0; x < n; ++x)
-        {
+        for (int x = 0; x < n; ++x) {
             fin >> type;
-            switch ((Cell_mode)type) {
+            switch ((Cell_mode) type) {
                 case SENTRY_PAWS:
                     monsters.emplace_back(std::make_shared<SentryPaws>(x, y));
                     break;
@@ -47,9 +47,9 @@ Level::Level(int difficulty, int dimX, int dimY, const std::string& filename) :
         }
 }
 
-void Level::update(sf::RenderWindow& window) {
+void Level::update(sf::RenderWindow &window) {
     sf::Event e;
-    while(window.pollEvent(e)) {
+    while (window.pollEvent(e)) {
         using namespace std::chrono_literals;
         std::this_thread::sleep_for(200ms);
         try {
@@ -66,7 +66,7 @@ void Level::update(sf::RenderWindow& window) {
             for (const auto &monster: monsters) {
                 monster->move(maze);
             }
-        } catch (GameOverException& e) {
+        } catch (GameOverException &e) {
             std::cerr << e.what();
             window.close();
             return;

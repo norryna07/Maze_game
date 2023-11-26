@@ -5,6 +5,7 @@
 
 #ifndef OOP_EXCEPTIONS_HPP
 #define OOP_EXCEPTIONS_HPP
+
 #include <exception>
 #include <stdexcept>
 
@@ -15,7 +16,7 @@ public:
 };
 
 /// \brief Exception for trying to move a character in a cell that is block (a wall cell)
-class BlockedCellException : public  std::logic_error {
+class BlockedCellException : public std::logic_error {
 public:
     explicit BlockedCellException(const std::string &arg) : logic_error(arg) {}
 };
