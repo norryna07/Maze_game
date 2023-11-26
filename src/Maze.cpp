@@ -86,12 +86,9 @@ bool Maze::inside(int x, int y) {
 /// \param new_y - the new Y coordinate
 /// \return true is the character was able to move, a character can move in a WALL cell, or outside the matrix
 bool Maze::move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y) {
-    try {
-        inside(old_x, old_x);
-        inside(new_x, new_y);
-    } catch (OutMatrixException &e) {
-        throw e;
-    }
+    inside(old_x, old_x);
+    inside(new_x, new_y);
+
     ///verify special case: First adding a monster on table
     if (old_x == new_x && old_y == new_y && matrix[old_y][old_x].getMode() == FREE) {
         matrix[new_y][new_x].setMode(mod);
