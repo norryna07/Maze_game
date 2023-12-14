@@ -117,3 +117,7 @@ bool Maze::free_cell(int x, int y) {
     return true;
 }
 
+bool Maze::finish(int x, int y) {
+    return x == nr_col - 1 && y == nr_lin - 1;
+}
+

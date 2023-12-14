@@ -39,6 +39,7 @@ bool Player::move(const sf::Event &e, Maze &m) {
         default:
             return false;
     }
+    if (m.finish(lx, ly)) throw GameWinException("WIN");
     try {
         m.move(PLAYER, x, y, lx, ly);
     } catch (BlockedCellException &ex) {

@@ -8,6 +8,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#define FactorDifficulty(difficulty) (2*(difficulty)+1)
+#define RED 2
+#define BLUE 3
 
 enum Cell_mode {
     FREE, WALL, PLAYER, MONSTER,

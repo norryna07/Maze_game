@@ -14,7 +14,6 @@
 #include "Monster.hpp"
 #include "Player.hpp"
 
-#define FactorDifficulty 5
 
 /// \brief Level class will store information about each level from game: maze, player and a vector of monsters.
 class Level {

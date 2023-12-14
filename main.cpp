@@ -4,6 +4,7 @@
 #include <chrono>
 #include <thread>
 #include "headers/Level.hpp"
+#include "headers/MazeActions.hpp"
 
 #ifdef __linux__
 #include <X11/Xlib.h>
@@ -33,10 +34,11 @@ int main() {
 //        m.draw(window);
 //        window.display();
 //    }
-    Level l1(1, window.getSize().x, window.getSize().y, "../tastatura.txt");
+
+    MazeActions::create(3);
+    Level l1(3, window.getSize().x, window.getSize().y, "../maze.txt");
     while (window.isOpen()) {
         l1.update(window);
     }
-
     return 0;
 }

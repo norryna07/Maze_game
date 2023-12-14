@@ -18,10 +18,10 @@
 /// \param dimY dimension Y of maze
 /// \param filename where the maze is store
 Level::Level(int difficulty, int dimX, int dimY, const std::string &filename) :
-        maze(FactorDifficulty * difficulty, FactorDifficulty * difficulty, dimX, dimY, filename){
+        maze(FactorDifficulty(difficulty), FactorDifficulty(difficulty), dimX, dimY, filename){
     score = 0;
     std::ifstream fin(filename);
-    int n = FactorDifficulty * difficulty;
+    int n = FactorDifficulty(difficulty);
     int type;
     /// y dimension in matrix represents the rows and x dimension in matrix represents the columns
     for (int y = 0; y < n; ++y)
@@ -67,6 +67,7 @@ void Level::update(sf::RenderWindow &window) {
                 case sf::Event::KeyPressed:
                     if (player.move(e, maze)) {
                         score++;
+
                         std::cout << "Actual number of steps: " << score << '\n';
                     }
                     break;
@@ -77,6 +78,10 @@ void Level::update(sf::RenderWindow &window) {
                 monster->move(maze);
             }
         } catch (GameOverException &ex) {
+            std::cerr << ex.what();
+            window.close();
+            return;
+        } catch (GameWinException &ex) {
             std::cerr << ex.what();
             window.close();
             return;

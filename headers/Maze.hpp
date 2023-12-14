@@ -31,6 +31,8 @@ public:
 
     bool free_cell(int x, int y);// { return matrix[x][y].getMode() != WALL;}
     friend std::ostream &operator<<(std::ostream &os, const Maze &maze);
+
+    bool finish(int x, int y);
 };
 
 
