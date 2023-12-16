@@ -4,14 +4,12 @@
 #include <chrono>
 #include <thread>
 #include "headers/Level.hpp"
-#include "headers/MazeActions.hpp"
-#include "headers/Menu.hpp"
+#include "headers/SceneManager.hpp"
 
 #ifdef __linux__
 #include <X11/Xlib.h>
 #endif
 
-void onClick() {std::cout<<"azi e luni";}
 
 int main() {
 #ifdef __linux__
@@ -44,17 +42,6 @@ int main() {
     }
     std::cout << MazeActions::solve(7) << '\n';
     */
-    std::string fontFile = "..\\fonts\\arial.ttf";
-    std::vector<std::function<void()>> fct;
-    fct.emplace_back(onClick);
-    fct.emplace_back(onClick);
-    fct.emplace_back(onClick);
-    fct.emplace_back(onClick);
-    Menu::load(window, fontFile, sf::Color::White, sf::Color::Blue, fct);
-    while(window.isOpen()) {
-        Menu::handleInput(window);
-        Menu::draw(window);
-        window.display();
-    }
+    SceneManager::StartPage(window);
     return 0;
 }
