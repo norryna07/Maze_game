@@ -37,71 +37,87 @@ void MazeActions::create(int difficulty) {
         for (int j = 1; j < nr_col; j += 2)
             matrix[i][j] = 1;
 
-    ///will create 2 vectors, one that will be used from start point and one that will be use from the finish point
-    std::set<std::pair<int, int> > list_start;
-    std::set<std::pair<int, int> > list_finish;
-    list_start.clear();
-    list_finish.clear();
-    list_start.emplace(0, 0);
-    list_finish.emplace(nr_lin - 1, nr_col - 1);
+    ///create 2 sets of pairs (first element will be the pos of cell, second element will be the pos of parent)
+    std::set<std::pair<std::pair<int, int>, std::pair<int, int>>> set_start;
+    std::set<std::pair<std::pair<int, int>, std::pair<int, int>>> set_end;
+    set_start.insert({{0,  0},
+                      {-1, -1}});
+    set_end.insert({{nr_lin - 1, nr_col - 1},
+                    {-1,         -1}});
 
-    ///because using the full cell being a wall the neighbor will be at 2 position distance
-    std::vector<std::pair<int, int> > neighbors;
-    neighbors.emplace_back(-2, 0);
-    neighbors.emplace_back(2, 0);
-    neighbors.emplace_back(0, 2);
+    ///neighbors will be the differance between a cell and the neighbor cells and
+    ///neighbors_wall will be the differance between the cell and the walls
+    std::vector<std::pair<int, int>> neighbors, neighbors_wall;
     neighbors.emplace_back(0, -2);
+    neighbors_wall.emplace_back(0, -1);
+    neighbors.emplace_back(0, 2);
+    neighbors_wall.emplace_back(0, 1);
+    neighbors.emplace_back(-2, 0);
+    neighbors_wall.emplace_back(-1, 0);
+    neighbors.emplace_back(2, 0);
+    neighbors_wall.emplace_back(1, 0);
 
-    ///add every steps we delete a cell from every list and add their non-visit neighbor
-    ///we will have (difficulty+1)^2 free cell to add to the maze but will be split in 2
     for (int k = 0; k <= (difficulty + 1) * (difficulty + 1) / 2; ++k) {
-
-        ///extract a random cell from start list
-        std::pair<int, int> current, neighbor_position;
-        current = getRandomElement(list_start);
-        if (current.first == -1) break;
-        ///delete the cell from the start list
-        list_start.erase(current);
-        ///set the cell being visit by the start position
-        matrix[current.first][current.second] = RED;
-        ///delete the cell if it is in the finish list
-        if (list_finish.find(current) != list_finish.end()) list_finish.erase(current);
-        ///add the neighbors
-        for (auto &neighbor: neighbors) {
-            neighbor_position = current + neighbor;
-            if (inside_cell(neighbor_position, nr_lin, nr_col))
-                if (matrix[neighbor_position.first][neighbor_position.second] == 0) list_start.emplace(neighbor_position);
+        ///for the start set
+        try {
+            auto [cell, parent] = getRandomElement(set_start);
+            ///mark cell as visit
+            matrix[cell.first][cell.second] = RED;
+            ///mark the wall as visit cell
+            for (int i = 0; i < 4; ++i)
+                if (parent + neighbors[i] == cell) {
+                    matrix[(parent + neighbors_wall[i]).first][(parent + neighbors_wall[i]).second] = RED;
+                    break;
+                }
+            ///delete this node from the list
+            set_start.erase({cell, parent});
+            ///delete all the pair that contain cell as child
+            for (int i = 0; i < 4; ++i) {
+                auto neighbor = cell + neighbors[i];
+                set_start.erase({cell, neighbor});
+                set_end.erase({cell, neighbor});
+            }
+            ///add the walls that can be remove for now on
+            for (int i = 0; i < 4; ++i) {
+                auto neighbor = cell + neighbors[i];
+                if (inside_cell(neighbor, nr_lin, nr_col) && matrix[neighbor.first][neighbor.second] == 0)
+                    set_start.insert({neighbor, cell});
+            }
+        } catch (...) {
+            break;
         }
 
-        ///make the same for the finish list
-        current = getRandomElement(list_finish);
-        ///if the number of free cell is odd then the last step will be just for the start list
-        if (current.first == -1) break;
-        ///delete the cell from the finish list
-        list_finish.erase(current);
-        ///mark the cell
-        matrix[current.first][current.second] = BLUE;
-        ///delete the cell if is in the start list
-        if (list_start.find(current) != list_start.end()) list_start.erase(current);
-        ///add the neighbor
-        for (auto &neighbor: neighbors) {
-            neighbor_position = current + neighbor;
-            if (inside_cell(neighbor_position, nr_lin, nr_col))
-                if (matrix[neighbor_position.first][neighbor_position.second] == 0) list_finish.emplace(neighbor_position);
+        ///for the end set
+        try {
+            ///get a random position from the set
+            auto [cell, parent] = getRandomElement(set_end);
+            ///mark the cell as visit
+            matrix[cell.first][cell.second] = BLUE;
+            ///mark the wall as visit cell
+            for (int i = 0; i < 4; ++i)
+                if (parent + neighbors[i] == cell) {
+                    matrix[(parent + neighbors_wall[i]).first][(parent + neighbors_wall[i]).second] = BLUE;
+                    break;
+                }
+            ///delete this pair from the set
+            set_end.erase({cell, parent});
+            ///delete all the pair that contain cell as child
+            for (int i = 0; i < 4; ++i) {
+                auto neighbor = cell + neighbors[i];
+                set_start.erase({cell, neighbor});
+                set_end.erase({cell, neighbor});
+            }
+            ///add the walls that can be remove for now on
+            for (int i = 0; i < 4; ++i) {
+                auto neighbor = cell + neighbors[i];
+                if (inside_cell(neighbor, nr_lin, nr_col) && matrix[neighbor.first][neighbor.second] == 0)
+                    set_end.insert({neighbor, cell});
+            }
+        } catch (...) {
+            break;
         }
     }
 
-    ///now will remove the walls between 2 cells that have the same color
-    for (int i = 1; i < nr_lin; i += 2)
-        for (int j = 0; j < nr_col; j += 2) {
-            ///verify for the neighbor rows
-            if (matrix[i - 1][j] == matrix[i + 1][j]) matrix[i][j] = matrix[i - 1][j];
-        }
-    for (int i = 0; i < nr_lin; i += 2)
-        for (int j = 1; j < nr_col; j += 2) {
-            ///verify for the neighbor columns
-            if (matrix[i][j-1] == matrix[i][j+1]) matrix[i][j] = matrix[i][j-1];
-        }
 
     ///now we need to free 2 cells that are between the two colors to create more good paths
     ///search for the free cells
@@ -109,14 +125,16 @@ void MazeActions::create(int difficulty) {
     for (int i = 1; i < nr_lin; i += 2)
         for (int j = 0; j < nr_col; j += 2) {
             ///verify for the neighbor rows
-            if ((matrix[i - 1][j] == BLUE &&  matrix[i + 1][j] == RED) ||
-                (matrix[i - 1][j] == RED &&  matrix[i + 1][j] == BLUE)) cells.emplace_back(i, j);
+            if ((matrix[i - 1][j] == BLUE && matrix[i + 1][j] == RED) ||
+                (matrix[i - 1][j] == RED && matrix[i + 1][j] == BLUE))
+                cells.emplace_back(i, j);
         }
     for (int i = 0; i < nr_lin; i += 2)
         for (int j = 1; j < nr_col; j += 2) {
             ///verify for the neighbor columns
-            if ((matrix[i][j-1] == BLUE && matrix[i][j+1] == RED) ||
-                (matrix[i][j-1] == RED && matrix[i][j+1] == BLUE)) cells.emplace_back(i, j);
+            if ((matrix[i][j - 1] == BLUE && matrix[i][j + 1] == RED) ||
+                (matrix[i][j - 1] == RED && matrix[i][j + 1] == BLUE))
+                cells.emplace_back(i, j);
         }
 
     ///get 2 random cells from this vector
@@ -129,8 +147,6 @@ void MazeActions::create(int difficulty) {
         for (int j = 0; j < nr_col; ++j)
             if (matrix[i][j] != 1) matrix[i][j] = 0;
 
-    ///now we have to add monster is the difficulty level is high
-
     ///write the maze in 'maze.txt'
     std::ofstream fout("..\\maze.txt");
     for (int i = 0; i < nr_lin; ++i) {
@@ -139,13 +155,61 @@ void MazeActions::create(int difficulty) {
         fout << '\n';
     }
 }
+
 /// \brief Check if a cell is inside the matrix.
 /// \param pair position (x,y) of the cell
 /// \param lin number of rows in matrix
 /// \param col number of columns in matrix
 /// \return True - if the cell is inside
-bool MazeActions::inside_cell(std::pair<int, int> &pair, int lin, int col) {
+bool MazeActions::inside_cell(const std::pair<int, int> &pair, int lin, int col) {
     return pair.first >= 0 && pair.second >= 0 && pair.first < lin && pair.second < col;
+}
+
+/// \brief Solve the maze using BFS.
+/// \param difficulty difficulty of the level
+/// \return the minim number of steps need to reach the finish point in maze without monsters.
+int MazeActions::solve(int difficulty) {
+    int nr_lin = FactorDifficulty(difficulty);
+    int nr_col = FactorDifficulty(difficulty);
+
+    ///read from file the matrix of the maze
+    std::ifstream fin ("maze.txt");
+    std::vector<std::vector<int>> matrix(nr_lin, std::vector<int>(nr_col));
+    for (int i = 0; i < nr_lin; ++i)
+        for (int j = 0; j < nr_col; ++j) {
+            fin>>matrix[i][j];
+            ///mark the walls with -1
+            matrix[i][j] = -matrix[i][j];
+        }
+
+    ///create an empty queue for the BFS algorithm
+    std::queue<std::pair<int, int>> q;
+
+    ///create a vector of difference between position and vectors
+    std::vector<std::pair<int, int>> diff;
+    diff.emplace_back(0, -1);
+    diff.emplace_back(0, 1);
+    diff.emplace_back(-1, 0);
+    diff.emplace_back(1, 0);
+
+    ///add the start point in the queue
+    q.emplace(0, 0);
+    matrix[0][0] = 1;
+
+    while (!q.empty()) {
+        ///extract first element from the queue and erase that from the queue
+        std::pair<int, int> current = q.front(); q.pop();
+        std::pair<int, int> neighbor;
+        for (auto& d:diff) {
+            neighbor = current + d;
+            if (inside_cell(neighbor, nr_lin, nr_col) && matrix[neighbor.first][neighbor.second] == 0) {
+                q.emplace(neighbor);
+                matrix[neighbor.first][neighbor.second] = matrix[current.first][current.second] + 1;
+                if (neighbor == std::pair<int, int>(nr_lin -1, nr_col - 1)) return matrix[nr_lin-1][nr_col-1] - 1;
+            }
+        }
+    }
+    return 0;
 }
 
 
@@ -153,12 +217,13 @@ bool MazeActions::inside_cell(std::pair<int, int> &pair, int lin, int col) {
 /// \tparam T type of elements from the set
 /// \param set1 a std::set of elements
 /// \return a random element from the set
-template <class T> T MazeActions::getRandomElement(std::set<T> set1) {
-    if (set1.empty()) return {-1, -1};
+template<class T>
+T MazeActions::getRandomElement(std::set<T> set1) {
+    if (set1.empty()) throw std::invalid_argument("empty set");
 
     ///Use a random seed from std::random_device
     std::random_device rd;
-    std::default_random_engine  rng(rd());
+    std::default_random_engine rng(rd());
 
     ///Generate a random index within the range of set
     std::uniform_int_distribution<size_t> dist(0, set1.size() - 1);
@@ -172,7 +237,8 @@ template <class T> T MazeActions::getRandomElement(std::set<T> set1) {
 /// \tparam T type of elements from the vector v
 /// \param v a std::vector
 /// \return a pair of 2 elements
-template <class T> std::pair<T, T> MazeActions::getTwoRandomElements(std::vector<T> v) {
+template<class T>
+std::pair<T, T> MazeActions::getTwoRandomElements(std::vector<T> v) {
     if (v.size() == 1) return {v[0], v[0]};
 
     ///Use a random seed form std::random_device

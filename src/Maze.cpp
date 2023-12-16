@@ -13,14 +13,7 @@
 /// \param dimY - dimension on Y axis
 /// \param filename - a path to a file where is a matrix that contain just 0 and 1 values: \n   0 - a free cell, 1 - a wall cell
 Maze::Maze(const int nrLin, const int nrCol, const int dimX, const int dimY, const std::string &filename) : nr_lin(
-        nrLin), nr_col(nrCol),
-                                                                                                            dim(dimX,
-                                                                                                                dimY),
-                                                                                                            dim_cell(
-                                                                                                                    dimX /
-                                                                                                                    nrCol,
-                                                                                                                    dimY /
-                                                                                                                    nrLin) {
+        nrLin), nr_col(nrCol),dim(dimX,dimY),dim_cell(dimX /nrCol,dimY /nrLin) {
     matrix.resize(nr_lin, std::vector<Cell>(nr_col)); ///resize the matrix
     if (filename.empty()) { ///if the filename is empty will create a maze where all cells are free.
         for (int i = 0; i < nr_lin; ++i)

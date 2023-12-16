@@ -67,8 +67,6 @@ void Level::update(sf::RenderWindow &window) {
                 case sf::Event::KeyPressed:
                     if (player.move(e, maze)) {
                         score++;
-
-                        std::cout << "Actual number of steps: " << score << '\n';
                     }
                     break;
                 default:
@@ -83,6 +81,8 @@ void Level::update(sf::RenderWindow &window) {
             return;
         } catch (GameWinException &ex) {
             std::cerr << ex.what();
+            score++;
+            std::cerr << " Number of steps: " << score << '\n';
             window.close();
             return;
         }

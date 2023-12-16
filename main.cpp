@@ -35,10 +35,11 @@ int main() {
 //        window.display();
 //    }
 
-    MazeActions::create(3);
-    Level l1(3, window.getSize().x, window.getSize().y, "../maze.txt");
+    MazeActions::create(7);
+    Level l1(7, window.getSize().x, window.getSize().y, "../maze.txt");
     while (window.isOpen()) {
         l1.update(window);
     }
+    std::cout << MazeActions::solve(7) << '\n';
     return 0;
 }
