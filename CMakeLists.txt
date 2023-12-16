@@ -135,7 +135,11 @@ add_executable(${PROJECT_NAME} main.cpp
         headers/Level.hpp
         headers/Exceptions.hpp
         src/MazeActions.cpp
-        headers/MazeActions.hpp)
+        headers/MazeActions.hpp
+        src/Button.cpp
+        headers/Button.hpp
+        src/Menu.cpp
+        headers/Menu.hpp)
 
 ###############################################################################
 

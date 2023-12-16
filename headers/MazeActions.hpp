@@ -18,6 +18,8 @@
 
 class MazeActions {
 
+    MazeActions() = default;
+
     friend std::pair<int, int> operator+(const std::pair<int, int> &a, const std::pair<int, int> &b);
 
     static bool inside_cell(const std::pair<int, int> &pair, int lin, int col);
@@ -30,6 +32,7 @@ class MazeActions {
 
 public:
     static void create(int difficulty);
+
     static int solve(int difficulty);
 };
 
