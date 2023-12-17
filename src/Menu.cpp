@@ -7,24 +7,32 @@
 std::vector<Button> Menu::buttons;
 sf::Font Menu::font;
 
-/// \brief load the menu
+/// \brief
 /// \param window where the menu is draw
 /// \param fontFile filename for font
 /// \param textColor color of text from the buttons
 /// \param buttonColor color of buttons
+/// \param nrButtons number of buttons
+/// \param textButtons a vector of text from every button
 /// \param onClick_functions a vector of functions for actions of buttons
 void Menu::load(sf::RenderWindow &window, const std::string& fontFile, const sf::Color &textColor,
-                const sf::Color &buttonColor, std::vector<std::function<void()>> onClick_functions) {
+                const sf::Color &buttonColor,unsigned int nrButtons, std::vector<std::string> textButtons, std::vector<std::function<void()>> onClick_functions) {
     ///get the dimension of start_position of the menu
     sf::Vector2f start_pos = sf::Vector2f(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
     ///load the font
     font.loadFromFile(fontFile);
 
-    buttons.emplace_back("Start New Game", font, start_pos, onClick_functions[0], textColor, buttonColor);
-    buttons.emplace_back("Resume Last Game", font, sf::Vector2f {start_pos.x, start_pos.y + 50}, onClick_functions[1], textColor, buttonColor);
-    buttons.emplace_back("Game Story", font, sf::Vector2f {start_pos.x, start_pos.y + 100}, onClick_functions[2], textColor, buttonColor);
-    buttons.emplace_back("Exit", font, sf::Vector2f {start_pos.x, start_pos.y + 150}, onClick_functions[3], textColor, buttonColor);
+    if (nrButtons > textButtons.size() || nrButtons > onClick_functions.size()){
+        return;
+    }
+
+    int height = 50;
+    for (unsigned int i = 0; i < nrButtons; ++i) {
+        buttons.emplace_back(textButtons[i], font, sf::Vector2f {start_pos.x, start_pos.y + i * height}, onClick_functions[i], textColor, buttonColor);
+    }
 }
+
+
 
 /// \brief draw the menu
 /// \param window where the menu is draw

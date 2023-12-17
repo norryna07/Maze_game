@@ -21,7 +21,7 @@ class Menu {
 
 public:
     static void load(sf::RenderWindow &window, const std::string &fontFile, const sf::Color &textColor,
-              const sf::Color &buttonColor, std::vector<std::function<void()>> onClick_functions);
+              const sf::Color &buttonColor,unsigned int nr_buttons, std::vector<std::string> textButtons, std::vector<std::function<void()>> onClick_functions);
 
     static void draw(sf::RenderWindow &window);
 

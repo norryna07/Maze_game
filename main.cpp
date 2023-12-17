@@ -18,7 +18,7 @@ int main() {
 
     sf::RenderWindow window;
     // NOTE: sync with env variable APP_WINDOW from .github/workflows/cmake.yml:30
-    window.create(sf::VideoMode({500, 500}), "Maze game", sf::Style::Default);
+    window.create(sf::VideoMode({700, 700}), "Maze game", sf::Style::Default);
     window.setVerticalSyncEnabled(true);
     //window.setFramerateLimit(60);
     TextureManager::load();

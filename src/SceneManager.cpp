@@ -30,11 +30,12 @@ void SceneManager::StartPage(sf::RenderWindow &window) {
     ///add the menu
     std::string fontFile = "..\\fonts\\arial.ttf";
     std::vector<std::function<void()>> fct_buttons;
-    fct_buttons.emplace_back(onClick);
-    fct_buttons.emplace_back(onClick);
-    fct_buttons.emplace_back(onClick);
-    fct_buttons.emplace_back([&window](){window.close();});
-    Menu::load(window, fontFile, sf::Color::White, sf::Color(Purple_color), fct_buttons);
+    std::vector<std::string> text_buttons;
+    fct_buttons.emplace_back(onClick); text_buttons.emplace_back("Start New Game");
+    fct_buttons.emplace_back(onClick); text_buttons.emplace_back("Resume Last Game");
+    fct_buttons.emplace_back(onClick); text_buttons.emplace_back("Game Story");
+    fct_buttons.emplace_back([&window](){window.close();}); text_buttons.emplace_back("Exit");
+    Menu::load(window, fontFile, sf::Color::White, sf::Color(Purple_color), 4, text_buttons, fct_buttons);
 
     ///create the loop for the Start Page
     while (window.isOpen()) {
