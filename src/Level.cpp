@@ -77,13 +77,13 @@ void Level::update(sf::RenderWindow &window) {
             }
         } catch (GameOverException &ex) {
             std::cerr << ex.what();
-            window.close();
+            SceneManager::EndGamePage(window);
             return;
         } catch (GameWinException &ex) {
             std::cerr << ex.what();
             score++;
             std::cerr << " Number of steps: " << score << '\n';
-            window.close();
+            SceneManager::WinLevelPage(window, score);
             return;
         }
         window.clear();

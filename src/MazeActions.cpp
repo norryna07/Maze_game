@@ -154,6 +154,7 @@ void MazeActions::create(int difficulty) {
             fout << matrix[i][j] << ' ';
         fout << '\n';
     }
+    fout.close();
 }
 
 /// \brief Check if a cell is inside the matrix.

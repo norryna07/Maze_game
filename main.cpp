@@ -5,6 +5,7 @@
 #include <thread>
 #include "headers/Level.hpp"
 #include "headers/SceneManager.hpp"
+#include "headers/MazeActions.hpp"
 
 #ifdef __linux__
 #include <X11/Xlib.h>
@@ -34,14 +35,17 @@ int main() {
 //        m.draw(window);
 //        window.display();
 //    }
-/*
+
     MazeActions::create(7);
     Level l1(7, window.getSize().x, window.getSize().y, "../maze.txt");
     while (window.isOpen()) {
         l1.update(window);
     }
     std::cout << MazeActions::solve(7) << '\n';
-    */
-    SceneManager::StartPage(window);
+
+    //SceneManager::StartPage(window);
+    //SceneManager::WinLevelPage(window, 140);
+    //SceneManager::EndGamePage(window);
+    //SceneManager::GameStory(window, END_SCENE);
     return 0;
 }
