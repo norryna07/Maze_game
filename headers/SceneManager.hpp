@@ -23,7 +23,7 @@ public:
     static void StartPage(sf::RenderWindow& window);
     static void WinLevelPage(sf::RenderWindow& window, int curr_score);
     static void EndGamePage(sf::RenderWindow& window);
-    static void GameStory(sf::RenderWindow& window, Last_Scene scene, int score = 0);
+    static void GameStory(sf::RenderWindow& window, Last_Scene scene, int score = 0,const std::function<void()> &back = [](){});
 
 };
 

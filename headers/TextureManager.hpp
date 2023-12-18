@@ -11,6 +11,8 @@
 #define FactorDifficulty(difficulty) (2*(difficulty)+1)
 #define RED 2
 #define BLUE 3
+#define Purple_color 139, 83, 255
+#define Blue_color 103, 203, 210
 
 enum Cell_mode {
     FREE, WALL, PLAYER, MONSTER,

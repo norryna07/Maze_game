@@ -25,7 +25,8 @@ class Level {
 public:
     Level(int difficulty, int dimX, int dimY, const std::string &filename = "");
 
-    void update(sf::RenderWindow &window);
+    void handleInput(sf::Event ev, sf::RenderWindow &window);
+    void draw(sf::RenderWindow& window);
 };
 
 

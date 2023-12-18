@@ -39,7 +39,15 @@ int main() {
     MazeActions::create(7);
     Level l1(7, window.getSize().x, window.getSize().y, "../maze.txt");
     while (window.isOpen()) {
-        l1.update(window);
+        sf::Event ev{};
+        while (window.pollEvent(ev)) {
+            using namespace std::chrono_literals;
+            std::this_thread::sleep_for(200ms);
+            l1.handleInput(ev, window);
+        }
+        window.clear();
+        l1.draw(window);
+        window.display();
     }
     std::cout << MazeActions::solve(7) << '\n';
 

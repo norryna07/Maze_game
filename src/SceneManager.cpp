@@ -5,9 +5,6 @@
 
 #include "../headers/SceneManager.hpp"
 
-#define Purple_color 139, 83, 255
-#define Blue_color 103, 203, 210
-#define scrollSpeed 5.0f
 
 void onClick() { std::cout << "ai apasat"; };
 
@@ -180,7 +177,7 @@ void SceneManager::EndGamePage(sf::RenderWindow &window) {
 
 /// \brief a page with Game Story and information about every monster
 /// \param window where the game take place
-void SceneManager::GameStory(sf::RenderWindow &window, Last_Scene scene, int score) {
+void SceneManager::GameStory(sf::RenderWindow &window, Last_Scene scene, int score,const std::function<void()> &back) {
     ///will display information about every monster, image and behavior
 
     ///get the font
@@ -255,6 +252,7 @@ void SceneManager::GameStory(sf::RenderWindow &window, Last_Scene scene, int sco
             fct = [&window]() { SceneManager::EndGamePage(window); };
             break;
         case GAME:
+            fct = back;
             break;
     }
 
