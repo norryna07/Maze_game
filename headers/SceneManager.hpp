@@ -10,6 +10,7 @@
 #include <iostream>
 #include "Menu.hpp"
 #include "TextureManager.hpp"
+#include "Game.hpp"
 
 /// \brief will helps as to know where must to came back from Story Game scene
 enum Last_Scene {

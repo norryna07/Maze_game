@@ -141,7 +141,10 @@ add_executable(${PROJECT_NAME} main.cpp
         src/Menu.cpp
         headers/Menu.hpp
         src/SceneManager.cpp
-        headers/SceneManager.hpp)
+        headers/SceneManager.hpp
+        src/Game.cpp
+        headers/Game.hpp
+        headers/Application.hpp)
 
 ###############################################################################
 

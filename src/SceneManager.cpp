@@ -29,23 +29,24 @@ void SceneManager::StartPage(sf::RenderWindow &window) {
     std::string fontFile = "..\\fonts\\arial.ttf";
     std::vector<std::function<void()>> fct_buttons;
     std::vector<std::string> text_buttons;
-    fct_buttons.emplace_back(onClick);
+    fct_buttons.emplace_back([&window](){Game::newGame(); Game::nextLevel(window);});
     text_buttons.emplace_back("Start New Game");
-    fct_buttons.emplace_back(onClick);
+    fct_buttons.emplace_back([&window](){Game::resume(); Game::nextLevel(window);});
     text_buttons.emplace_back("Resume Last Game");
     fct_buttons.emplace_back([&window]() { SceneManager::GameStory(window, START_SCENE); });
     text_buttons.emplace_back("Game Story");
     fct_buttons.emplace_back([&window]() { window.close(); });
     text_buttons.emplace_back("Exit");
-    Menu::load(window, fontFile, sf::Color::White, sf::Color(Purple_color), text_buttons.size(), text_buttons,
+    Menu start_menu;
+    start_menu.load(window, fontFile, sf::Color::White, sf::Color(Purple_color), text_buttons.size(), text_buttons,
                fct_buttons);
 
     ///create the loop for the Start Page
     window.clear();
     while (window.isOpen()) {
         window.clear();
-        Menu::handleInput(window);
-        Menu::draw(window);
+        start_menu.handleInput(window);
+        start_menu.draw(window);
         window.draw(logo_sprite);
         window.display();
     }
@@ -85,13 +86,13 @@ void SceneManager::WinLevelPage(sf::RenderWindow &window, int curr_score) {
     current_score.setPosition(window.getSize().x / 2.0f, window.getSize().y * 0.32f);
 
     ///take high score from file
-    std::ifstream fin("..\\highscore.txt");
+    std::ifstream fin("..\\text_files\\highscore.txt");
     int h_score;
     fin >> h_score;
     fin.close();
     if (h_score < curr_score) {
         h_score = curr_score;
-        std::ofstream fout("..\\highscore.txt");
+        std::ofstream fout("..\\text_files\\highscore.txt");
         fout << h_score;
         fout.close();
     }
@@ -109,24 +110,25 @@ void SceneManager::WinLevelPage(sf::RenderWindow &window, int curr_score) {
     ///add the menu
     std::vector<std::string> textButtons;
     std::vector<std::function<void()>> fctButtons;
-    fctButtons.emplace_back(onClick);
+    fctButtons.emplace_back([&window](){Game::nextLevel(window);});
     textButtons.emplace_back("Next Level");
-    fctButtons.emplace_back(onClick);
+    fctButtons.emplace_back([](){Game::saveGame();});
     textButtons.emplace_back("Save current game");
     fctButtons.emplace_back([&window, curr_score]() { SceneManager::GameStory(window, WIN_SCENE, curr_score); });
     textButtons.emplace_back("Game Story");
     fctButtons.emplace_back([&window]() { window.close(); });
     textButtons.emplace_back("Exit");
 
-    Menu::load(window, fontfile, sf::Color::White, sf::Color(Purple_color), textButtons.size(), textButtons,
+    Menu win_menu;
+    win_menu.load(window, fontfile, sf::Color::White, sf::Color(Purple_color), textButtons.size(), textButtons,
                fctButtons);
 
     ///create the loop for the WinPage
     window.clear();
     while (window.isOpen()) {
         window.clear();
-        Menu::handleInput(window);
-        Menu::draw(window);
+        win_menu.handleInput(window);
+        win_menu.draw(window);
         window.draw(mess_sprite);
         window.draw(current_score);
         window.draw(high_score);
@@ -154,22 +156,23 @@ void SceneManager::EndGamePage(sf::RenderWindow &window) {
     ///add the menu
     std::vector<std::string> textButtons;
     std::vector<std::function<void()>> fctButtons;
-    fctButtons.emplace_back(onClick);
+    fctButtons.emplace_back([&window](){Game::newGame(); Game::nextLevel(window);});
     textButtons.emplace_back("Start New Game");
     fctButtons.emplace_back([&window](){SceneManager::GameStory(window, END_SCENE);});
     textButtons.emplace_back("Game Story");
     fctButtons.emplace_back([&window]() { window.close(); });
     textButtons.emplace_back("Exit");
 
-    Menu::load(window, "..\\fonts\\arial.ttf", sf::Color::White, sf::Color(Purple_color), textButtons.size(),
+    Menu end_menu;
+    end_menu.load(window, "..\\fonts\\arial.ttf", sf::Color::White, sf::Color(Purple_color), textButtons.size(),
                textButtons, fctButtons);
 
     ///create the loop for the End Game page
     window.clear();
     while (window.isOpen()) {
         window.clear();
-        Menu::handleInput(window);
-        Menu::draw(window);
+        end_menu.handleInput(window);
+        end_menu.draw(window);
         window.draw(mess_sprite);
         window.display();
     }
@@ -233,7 +236,7 @@ void SceneManager::GameStory(sf::RenderWindow &window, Last_Scene scene, int sco
         behaviors[i].setPosition(15, names[i].getPosition().y + 35);
 
         ///add the images
-        images[i].setTexture(TextureManager::getTexture(MONSTER));
+        images[i].setTexture(TextureManager::getTexture((Cell_mode)(i + FINISH + 1)));
         images[i].setSize({diff - 35, diff - 35});
         images[i].setPosition(3.0f * window.getSize().x / 4.0f - (diff - 35) / 2.0f, names[i].getPosition().y + 35);
 

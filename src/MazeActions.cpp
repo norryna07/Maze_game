@@ -148,7 +148,7 @@ void MazeActions::create(int difficulty) {
             if (matrix[i][j] != 1) matrix[i][j] = 0;
 
     ///write the maze in 'maze.txt'
-    std::ofstream fout("..\\maze.txt");
+    std::ofstream fout("..\\text_files\\maze.txt");
     for (int i = 0; i < nr_lin; ++i) {
         for (int j = 0; j < nr_col; ++j)
             fout << matrix[i][j] << ' ';
@@ -174,7 +174,7 @@ int MazeActions::solve(int difficulty) {
     int nr_col = FactorDifficulty(difficulty);
 
     ///read from file the matrix of the maze
-    std::ifstream fin ("maze.txt");
+    std::ifstream fin ("..\\text_files\\maze.txt");
     std::vector<std::vector<int>> matrix(nr_lin, std::vector<int>(nr_col));
     for (int i = 0; i < nr_lin; ++i)
         for (int j = 0; j < nr_col; ++j) {
@@ -211,6 +211,58 @@ int MazeActions::solve(int difficulty) {
         }
     }
     return 0;
+}
+
+/// \brief a function that add monsters to the maze
+/// \param difficulty of the maze
+void MazeActions::add_monsters(int difficulty, int& number_monsters) {
+    if (difficulty <= 2) return; ///no monsters added
+    int numberMonster[6]={};
+    if (number_monsters < 3) number_monsters ++;
+    if (difficulty <= 8) {
+        ///every difficulty will have an different monster
+        numberMonster[difficulty - 3] = number_monsters/2 + 1;
+    }
+    else {
+        ///after will we combine monsters
+        for (int i = 0; i < (difficulty-1)%6; ++i)
+            numberMonster[i] = difficulty/6 + number_monsters/2;
+    }
+
+    ///put the monsters in the maze
+
+    ///get the free position from the maze
+    std::ifstream  fin ("..\\text_files\\maze.txt");
+    std::set<std::pair<int, int> > free_zone;
+
+    int nr_lin = FactorDifficulty(difficulty);
+    int nr_col = FactorDifficulty(difficulty);
+    std::vector<std::vector<int>> m(nr_lin, std::vector<int>(nr_col));
+    for (int i = 0 ; i < nr_lin; ++i)
+        for (int j = 0; j < nr_col; ++j)
+        {
+            fin >> m[i][j];
+            if (m[i][j] == 0) free_zone.emplace(i, j);
+        }
+    fin.close();
+
+    ///adding the monsters one by one
+    for (int i = 0; i < 6; ++i) {
+        for (int k = 1; k <= numberMonster[i]; ++k) {
+            auto free_cell = getRandomElement(free_zone);
+            m[free_cell.first][free_cell.second] = i + 4;
+            free_zone.erase(free_cell);
+        }
+    }
+
+    ///print the final maze
+    std::ofstream fout ("..\\text_files\\maze.txt");
+    for (int i = 0; i < nr_lin; ++i) {
+        for (int j = 0; j < nr_col; ++j)
+            fout << m[i][j] << ' ';
+        fout << '\n';
+    }
+    fout.close();
 }
 
 

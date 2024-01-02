@@ -66,23 +66,20 @@ void Level::handleInput(sf::Event e, sf::RenderWindow &window) {
                 if (player.move(e, maze)) {
                     score++;
                 }
+                for (const auto &monster: monsters) {
+                    monster->move(maze);
+                }
                 break;
             default:
                 break;
         }
-        for (const auto &monster: monsters) {
-            monster->move(maze);
-        }
     } catch (GameOverException &ex) {
         std::cerr << ex.what();
-        SceneManager::EndGamePage(window);
-        return;
+        throw ex;
     } catch (GameWinException &ex) {
         std::cerr << ex.what();
         score++;
-        std::cerr << " Number of steps: " << score << '\n';
-        SceneManager::WinLevelPage(window, score);
-        return;
+        throw GameWinException(std::to_string(score));
     }
 }
 

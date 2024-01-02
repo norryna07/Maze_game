@@ -53,6 +53,9 @@ std::ostream &operator<<(std::ostream &os, const Cell &cell) {
         case PLAYER:
             os << "PLAYER";
             break;
+        case FINISH:
+            os << "FINISH";
+            break;
         default:
             os << "MONSTER";
             break;

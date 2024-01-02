@@ -34,6 +34,8 @@ public:
     static void create(int difficulty);
 
     static int solve(int difficulty);
+
+    static void add_monsters(int difficulty, int& number_monsters);
 };
 
 

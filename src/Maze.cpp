@@ -29,10 +29,13 @@ Maze::Maze(const int nrLin, const int nrCol, const int dimX, const int dimY, con
                 matrix[i][j].setDimensions(i, j, dim_cell.x, dim_cell.y);
                 matrix[i][j].setMode(mod);
             }
+
         fin.close();
     }
     //set player
     matrix[0][0].setMode(PLAYER);
+    //set finish
+    matrix[nr_lin-1][nr_col-1].setMode(FINISH);
 }
 
 /// \brief display on an SFML windows the maze.
@@ -90,8 +93,8 @@ bool Maze::move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y) {
     if (matrix[old_y][old_x].getMode() != mod) throw BlockedCellException("invalid start cell");
     if (matrix[new_y][new_x].getMode() == WALL) throw BlockedCellException("block end cell");
     if (matrix[new_y][new_x].getMode() != FREE) {
-        if ((matrix[new_y][new_x].getMode() == PLAYER && mod >= MONSTER) ||
-            (matrix[new_y][new_x].getMode() >= MONSTER && mod == PLAYER)) {
+        if ((matrix[new_y][new_x].getMode() == PLAYER && mod > FINISH) ||
+            (matrix[new_y][new_x].getMode() > FINISH && mod == PLAYER)) {
             throw GameOverException("Player meet a monster");
         }
     }
@@ -106,7 +109,7 @@ bool Maze::move(Cell_mode mod, int old_x, int old_y, int new_x, int new_y) {
 /// \return true - if the cell is free, false - otherwise
 bool Maze::free_cell(int x, int y) {
     if (matrix[y][x].getMode() == WALL) throw BlockedCellException("Wall here");
-    if (matrix[y][x].getMode() >= MONSTER) throw BlockedCellException("Other monster here");
+    if (matrix[y][x].getMode() > FINISH) throw BlockedCellException("Other monster here");
     return true;
 }
 

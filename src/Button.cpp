@@ -4,6 +4,7 @@
 //
 
 #include "../headers/Button.hpp"
+#include "../headers/Exceptions.hpp"
 
 /// \brief Constructor for button.
 /// \param buttonText text from the button

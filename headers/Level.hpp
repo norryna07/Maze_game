@@ -13,7 +13,6 @@
 #include <thread>
 #include "Monster.hpp"
 #include "Player.hpp"
-#include "SceneManager.hpp"
 
 
 /// \brief Level class will store information about each level from game: maze, player and a vector of monsters.

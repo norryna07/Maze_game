@@ -32,5 +32,9 @@ public:
     explicit GameWinException(const std::string &arg) : runtime_error(arg) {}
 };
 
+class InterruptFlag : public  std::runtime_error {
+public:
+    explicit InterruptFlag(const std::string &arg) : runtime_error(arg) {}
+};
 
 #endif //OOP_EXCEPTIONS_HPP

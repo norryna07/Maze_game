@@ -15,13 +15,18 @@ JungleJumper::JungleJumper(unsigned int x, unsigned int y) : Monster(x, y) {
 void JungleJumper::move(Maze &maze) {
     ///try to move up
     try {
-        if (maze.inside(x, y - 2)) {
-            maze.move(type, x, y, x, y - 2);
-            y -= 2;
-        } else if (maze.inside(x, y + 2)) {
-            maze.move(type, x, y, x, y + 2);
-            y += 2;
-        }
+        maze.move(type, x, y, x, y - 2);
+        y -= 2;
+        return;
+    } catch (OutMatrixException &e) {
+        std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
+    } catch (BlockedCellException &e) {
+        std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
+    }
+    ///try to move down
+    try {
+        maze.move(type, x, y, x, y + 2);
+        y += 2;
     } catch (OutMatrixException &e) {
         std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
     } catch (BlockedCellException &e) {

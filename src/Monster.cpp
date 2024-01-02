@@ -1,5 +1,5 @@
 //
-// Created by norin on 11/19/2023.
+// Created by Norina Alexandru on 11/19/2023.
 //
 
 #include "../headers/Monster.hpp"

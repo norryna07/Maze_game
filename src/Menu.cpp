@@ -4,8 +4,6 @@
 
 #include "../headers/Menu.hpp"
 
-std::vector<Button> Menu::buttons;
-sf::Font Menu::font;
 
 /// \brief
 /// \param window where the menu is draw
