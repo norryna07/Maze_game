@@ -67,6 +67,7 @@ void Game::nextLevel(sf::RenderWindow &window) {
         std::ofstream fout("..\\text_files\\save.txt");
         fout << "";
         fout.close();
+        std::cerr << ex.what();
         SceneManager::EndGamePage(window);
         return;
     } catch (GameWinException &ex) {
