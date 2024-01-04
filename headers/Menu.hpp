@@ -10,9 +10,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <functional>
-#include <chrono>
-#include <thread>
 
+/// \brief A class that contain a set of button with different actions
 class Menu {
     std::vector<Button> buttons;
     sf::Font font;
@@ -20,8 +19,10 @@ class Menu {
 
 public:
     Menu() = default;
+
     void load(sf::RenderWindow &window, const std::string &fontFile, const sf::Color &textColor,
-              const sf::Color &buttonColor,unsigned int nr_buttons, std::vector<std::string> textButtons, std::vector<std::function<void()>> onClick_functions);
+              const sf::Color &buttonColor, unsigned int nr_buttons, std::vector<std::string> textButtons,
+              std::vector<std::function<void()>> onClick_functions);
 
     void draw(sf::RenderWindow &window);
 
@@ -29,7 +30,6 @@ public:
 
 
 };
-
 
 
 #endif //OOP_MENU_HPP

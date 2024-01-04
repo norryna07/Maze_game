@@ -7,7 +7,7 @@
 
 
 /// \brief Constructor for cell class.
-/// \param mode - type of cell: FREE, WALL, PLAYER, MONSTER
+/// \param mode - type of cell: FREE, WALL, PLAYER, FINISH, etc.
 /// \param lin - row of cell
 /// \param col - column of cell
 /// \param dimX - dimension on X axis
@@ -19,7 +19,7 @@ Cell::Cell(Cell_mode mode, const int lin, const int col, const int dimX, const i
 }
 
 /// \brief A setter for the type of Cell.
-/// \param lmode - type of cell that will be set: FREE, WALL, PLAYER, MONSTER
+/// \param lmode - type of cell that will be set: FREE, WALL, PLAYER, FINISH, etc.
 void Cell::setMode(Cell_mode lmode) {
     if (this->mode == WALL) return;
     this->mode = lmode;

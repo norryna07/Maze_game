@@ -5,6 +5,9 @@
 
 #include "../headers/MazeActions.hpp"
 #include <iostream>
+#include <fstream>
+#include <random>
+#include <queue>
 
 /// \brief Overwrite + operator between 2 pairs of int.
 /// \param a first pair
@@ -182,6 +185,7 @@ int MazeActions::solve(int difficulty) {
             ///mark the walls with -1
             matrix[i][j] = -matrix[i][j];
         }
+    fin.close();
 
     ///create an empty queue for the BFS algorithm
     std::queue<std::pair<int, int>> q;

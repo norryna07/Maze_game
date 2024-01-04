@@ -4,6 +4,8 @@
 //
 
 #include "../../headers/Monsters/JungleJumper.hpp"
+#include "../../headers/Exceptions.hpp"
+#include <iostream>
 
 Cell_mode JungleJumper::type = JUNGLE_JUMPER;
 

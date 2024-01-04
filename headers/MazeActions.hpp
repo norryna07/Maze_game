@@ -11,11 +11,8 @@
 #include "TextureManager.hpp"
 #include <vector>
 #include <set>
-#include <fstream>
-#include <random>
-#include <queue>
 
-
+/// \brief A class that contain algorithms for creating and solving the maze.
 class MazeActions {
 
     MazeActions() = default;
@@ -35,7 +32,7 @@ public:
 
     static int solve(int difficulty);
 
-    static void add_monsters(int difficulty, int& number_monsters);
+    static void add_monsters(int difficulty, int &number_monsters);
 };
 
 

@@ -4,6 +4,8 @@
 //
 
 #include "../../headers/Monsters/ZigzagZephyr.hpp"
+#include "../../headers/Exceptions.hpp"
+#include <iostream>
 
 Cell_mode ZigzagZephyr::type = ZIGZAG_ZEPHYR;
 
@@ -21,37 +23,32 @@ ZigzagZephyr::ZigzagZephyr(unsigned int x, unsigned int y, bool direction) : Mon
 /// \param maze the maze where the monster moves
 void ZigzagZephyr::move(Maze &maze) {
     if (step == Vertically) {
-            try {
-                maze.move(type, x, y, x, y + y_dir);
-                y += y_dir;
-                step = Orizontally;
-                return;
+        try {
+            maze.move(type, x, y, x, y + y_dir);
+            y += y_dir;
+            step = Orizontally;
+            return;
 
-        } catch (OutMatrixException & e)
-        {
+        } catch (OutMatrixException &e) {
             std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
             change_direction();
             return;
-        } catch (BlockedCellException & e)
-        {
+        } catch (BlockedCellException &e) {
             std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
             change_direction();
             return;
         }
-    }
-    else{
-        try{
+    } else {
+        try {
             maze.move(type, x, y, x + x_dir, y);
             x += x_dir;
             step = Vertically;
             return;
-        }catch (OutMatrixException & e)
-        {
+        } catch (OutMatrixException &e) {
             std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
             change_direction();
             return;
-        } catch (BlockedCellException & e)
-        {
+        } catch (BlockedCellException &e) {
             std::cerr << "Cell:" << x << ' ' << y << ", error: " << e.what() << '\n';
             change_direction();
             return;

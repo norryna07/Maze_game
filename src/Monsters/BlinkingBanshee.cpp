@@ -4,6 +4,8 @@
 //
 
 #include "../../headers/Monsters/BlinkingBanshee.hpp"
+#include "../../headers/Exceptions.hpp"
+#include <iostream>
 
 Cell_mode BlinkingBanshee::type = BLINKING_BANSHEE;
 int BlinkingBanshee::x_dir[12] = {0, -1, 0, 1, -2, -1, 1, 2, -1, 0, 1, 0};

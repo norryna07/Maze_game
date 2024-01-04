@@ -1,15 +1,20 @@
 //
-// Created by norin on 11/20/2023.
+// Created by Norina Alexandru on 11/20/2023.
+// cpp file for the TextureManager class
 //
 
 #include "../headers/TextureManager.hpp"
 
 std::vector<sf::Texture> TextureManager::tex(10);
 
+/// \brief get texture by the type of the cell
+/// \param type the type of texture
+/// \return texture object of that type
 sf::Texture *TextureManager::getTexture(Cell_mode type) {
     return &(tex[(int) type]);
 }
 
+/// \brief load every texture from images file if this wasn't done already
 void TextureManager::load() {
     static bool alreadyLoaded = false;
     if (!alreadyLoaded) {

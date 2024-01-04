@@ -10,8 +10,10 @@
 #include "TextureManager.hpp"
 #include "SceneManager.hpp"
 
+/// \brief A class that run the application game.
 class Application {
     Application() = default;
+
 public:
     static void run() {
         sf::RenderWindow window;
@@ -19,7 +21,6 @@ public:
         window.setVerticalSyncEnabled(true);
         TextureManager::load();
         SceneManager::StartPage(window);
-
     }
 };
 

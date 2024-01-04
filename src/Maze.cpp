@@ -4,6 +4,8 @@
 //
 
 #include "../headers/Maze.hpp"
+#include "../headers/Exceptions.hpp"
+#include <fstream>
 
 
 /// \brief Constructor for maze class. Create a maze with nrLin rows, nrCol columns and with the shape found in filename, putting always the player on (0,0) position.
@@ -13,7 +15,7 @@
 /// \param dimY - dimension on Y axis
 /// \param filename - a path to a file where is a matrix that contain just 0 and 1 values: \n   0 - a free cell, 1 - a wall cell
 Maze::Maze(const int nrLin, const int nrCol, const int dimX, const int dimY, const std::string &filename) : nr_lin(
-        nrLin), nr_col(nrCol),dim(dimX,dimY),dim_cell(dimX /nrCol,dimY /nrLin) {
+        nrLin), nr_col(nrCol), dim(dimX, dimY), dim_cell(dimX / nrCol, dimY / nrLin) {
     matrix.resize(nr_lin, std::vector<Cell>(nr_col)); ///resize the matrix
     if (filename.empty()) { ///if the filename is empty will create a maze where all cells are free.
         for (int i = 0; i < nr_lin; ++i)
@@ -35,7 +37,7 @@ Maze::Maze(const int nrLin, const int nrCol, const int dimX, const int dimY, con
     //set player
     matrix[0][0].setMode(PLAYER);
     //set finish
-    matrix[nr_lin-1][nr_col-1].setMode(FINISH);
+    matrix[nr_lin - 1][nr_col - 1].setMode(FINISH);
 }
 
 /// \brief display on an SFML windows the maze.
@@ -54,9 +56,9 @@ std::ostream &operator<<(std::ostream &os, const Maze &maze) {
     os << " nr_lin: " << maze.nr_lin << " nr_col: " << maze.nr_col << " dim_x: "
        << maze.dim.x << " dim_y: " << maze.dim.y << " dim_cell_x: " << maze.dim_cell.x << " dim_cell_y: "
        << maze.dim_cell.y << '\n';
-    for (auto it_l = maze.matrix.begin(); it_l != maze.matrix.end(); ++it_l) {
-        for (auto it_c = it_l->begin(); it_c != it_l->end(); ++it_c)
-            os << it_c->getMode() << ' ';
+    for (int i = 0; i < maze.nr_lin; ++i) {
+        for (int j = 0; j < maze.nr_col; ++j)
+            os << maze.matrix[i][j].getMode() << ' ';
         os << '\n';
     }
     return os;

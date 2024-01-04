@@ -10,6 +10,9 @@
 #include "../headers/Monsters/BlinkingBanshee.hpp"
 #include "../headers/Monsters/WanderingWhisk.hpp"
 #include "../headers/Monsters/ZigzagZephyr.hpp"
+#include "../headers/Exceptions.hpp"
+
+#include <iostream>
 #include <fstream>
 
 /// \brief Construction for Level class
@@ -24,6 +27,10 @@ Level::Level(int difficulty, int dimX, int dimY, const std::string &filename) :
     std::ifstream fin(filename);
     int n = FactorDifficulty(difficulty);
     int type;
+
+    ///for ROAMING_RIDDLER monster
+    std::vector<sf::Vector2<unsigned int>> path;
+
     /// y dimension in matrix represents the rows and x dimension in matrix represents the columns
     for (int y = 0; y < n; ++y)
         for (int x = 0; x < n; ++x) {
@@ -42,7 +49,10 @@ Level::Level(int difficulty, int dimX, int dimY, const std::string &filename) :
                     monsters.emplace_back(std::make_shared<WanderingWhisk>(x, y));
                     break;
                 case ROAMING_RIDDLER:
-                    //monsters.emplace_back(std::make_shared<RoamingRiddler>())
+                    path.emplace_back(x, y);
+                    path.emplace_back(x - 1, y);
+                    path.emplace_back(x - 2, y);
+                    monsters.emplace_back(std::make_shared<RoamingRiddler>(path));
                     break;
                 case BLINKING_BANSHEE:
                     monsters.emplace_back(std::make_shared<BlinkingBanshee>(x, y));
@@ -51,6 +61,7 @@ Level::Level(int difficulty, int dimX, int dimY, const std::string &filename) :
                     break;
             }
         }
+    fin.close();
 }
 
 /// \brief a function that handleInput for levels

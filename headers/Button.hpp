@@ -16,9 +16,11 @@ class Button {
     std::function<void()> onClick;
 public:
     Button(const std::string &buttonText, const sf::Font &font, const sf::Vector2<float> &position,
-           const std::function<void()>& OnClick, const sf::Color &textColor, const sf::Color &buttonColor);
-    void draw(sf::RenderWindow& window);
-    void handleEvent(const sf::Event& event, sf::RenderWindow& window);
+           const std::function<void()> &OnClick, const sf::Color &textColor, const sf::Color &buttonColor);
+
+    void draw(sf::RenderWindow &window);
+
+    void handleEvent(const sf::Event &event, sf::RenderWindow &window);
 };
 
 

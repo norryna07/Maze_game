@@ -7,9 +7,7 @@
 #ifndef OOP_BLINKINGBANSHEE_HPP
 #define OOP_BLINKINGBANSHEE_HPP
 
-#include <random>
 #include "../Monster.hpp"
-#include <SFML/Graphics.hpp>
 
 /// \brief A type of monster that use teleportation to reach other cells in maze. He has a range of 2 cells.
 class BlinkingBanshee : public Monster {

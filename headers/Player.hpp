@@ -8,10 +8,9 @@
 
 #include "Maze.hpp"
 #include <SFML/Graphics.hpp>
+#include <ostream>
 
-
-#include <iostream>
-
+/// \brief coordinate the player's movement
 class Player {
     unsigned int x = 0, y = 0;
 public:

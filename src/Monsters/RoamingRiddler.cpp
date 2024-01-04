@@ -4,6 +4,8 @@
 //
 
 #include "../../headers/Monsters/RoamingRiddler.hpp"
+#include "../../headers/Exceptions.hpp"
+#include <iostream>
 
 Cell_mode RoamingRiddler::type = ROAMING_RIDDLER;
 

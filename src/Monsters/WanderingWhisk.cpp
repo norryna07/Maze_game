@@ -4,6 +4,8 @@
 //
 
 #include "../../headers/Monsters/WanderingWhisk.hpp"
+#include "../../headers/Exceptions.hpp"
+#include <iostream>
 
 int WanderingWhisk::x_dir[4] = {0, 0, -1, 1};
 int WanderingWhisk::y_dir[4] = {-1, 1, 0, 0};

@@ -1,9 +1,11 @@
 //
-// Created by norin on 12/16/2023.
+// Created by Norina Alexandru on 12/16/2023.
+// cpp file for Menu class.
 //
 
 #include "../headers/Menu.hpp"
-
+#include <chrono>
+#include <thread>
 
 /// \brief
 /// \param window where the menu is draw
@@ -45,12 +47,14 @@ void Menu::draw(sf::RenderWindow &window) {
 void Menu::handleInput(sf::RenderWindow &window) {
     sf::Event ev{};
     while (window.pollEvent(ev)) {
+        ///sleep for a period of time
         using namespace std::chrono_literals;
         std::this_thread::sleep_for(200ms);
+
         if (ev.type == sf::Event::Closed) window.close();
-        for (auto& button:buttons) {
-            button.handleEvent(ev, window);
-        }
+        else for (auto& button:buttons) {
+                button.handleEvent(ev, window);
+             }
     }
 }
 

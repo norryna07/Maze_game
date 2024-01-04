@@ -4,9 +4,12 @@
 //
 
 #include "../headers/SceneManager.hpp"
+#include <fstream>
+#include <iostream>
+#include "../headers/Menu.hpp"
+#include "../headers/TextureManager.hpp"
+#include "../headers/Game.hpp"
 
-
-void onClick() { std::cout << "ai apasat"; };
 
 /// \brief Will create Start Page of the game.
 /// \param window where the scene is place
@@ -29,9 +32,15 @@ void SceneManager::StartPage(sf::RenderWindow &window) {
     std::string fontFile = "..\\fonts\\arial.ttf";
     std::vector<std::function<void()>> fct_buttons;
     std::vector<std::string> text_buttons;
-    fct_buttons.emplace_back([&window](){Game::newGame(); Game::nextLevel(window);});
+    fct_buttons.emplace_back([&window]() {
+        Game::newGame();
+        Game::nextLevel(window);
+    });
     text_buttons.emplace_back("Start New Game");
-    fct_buttons.emplace_back([&window](){Game::resume(); Game::nextLevel(window);});
+    fct_buttons.emplace_back([&window]() {
+        Game::resume();
+        Game::nextLevel(window);
+    });
     text_buttons.emplace_back("Resume Last Game");
     fct_buttons.emplace_back([&window]() { SceneManager::GameStory(window, START_SCENE); });
     text_buttons.emplace_back("Game Story");
@@ -39,7 +48,7 @@ void SceneManager::StartPage(sf::RenderWindow &window) {
     text_buttons.emplace_back("Exit");
     Menu start_menu;
     start_menu.load(window, fontFile, sf::Color::White, sf::Color(Purple_color), text_buttons.size(), text_buttons,
-               fct_buttons);
+                    fct_buttons);
 
     ///create the loop for the Start Page
     window.clear();
@@ -90,6 +99,7 @@ void SceneManager::WinLevelPage(sf::RenderWindow &window, int curr_score) {
     int h_score;
     fin >> h_score;
     fin.close();
+
     if (h_score < curr_score) {
         h_score = curr_score;
         std::ofstream fout("..\\text_files\\highscore.txt");
@@ -110,9 +120,9 @@ void SceneManager::WinLevelPage(sf::RenderWindow &window, int curr_score) {
     ///add the menu
     std::vector<std::string> textButtons;
     std::vector<std::function<void()>> fctButtons;
-    fctButtons.emplace_back([&window](){Game::nextLevel(window);});
+    fctButtons.emplace_back([&window]() { Game::nextLevel(window); });
     textButtons.emplace_back("Next Level");
-    fctButtons.emplace_back([](){Game::saveGame();});
+    fctButtons.emplace_back([]() { Game::saveGame(); });
     textButtons.emplace_back("Save current game");
     fctButtons.emplace_back([&window, curr_score]() { SceneManager::GameStory(window, WIN_SCENE, curr_score); });
     textButtons.emplace_back("Game Story");
@@ -121,7 +131,7 @@ void SceneManager::WinLevelPage(sf::RenderWindow &window, int curr_score) {
 
     Menu win_menu;
     win_menu.load(window, fontfile, sf::Color::White, sf::Color(Purple_color), textButtons.size(), textButtons,
-               fctButtons);
+                  fctButtons);
 
     ///create the loop for the WinPage
     window.clear();
@@ -156,16 +166,19 @@ void SceneManager::EndGamePage(sf::RenderWindow &window) {
     ///add the menu
     std::vector<std::string> textButtons;
     std::vector<std::function<void()>> fctButtons;
-    fctButtons.emplace_back([&window](){Game::newGame(); Game::nextLevel(window);});
+    fctButtons.emplace_back([&window]() {
+        Game::newGame();
+        Game::nextLevel(window);
+    });
     textButtons.emplace_back("Start New Game");
-    fctButtons.emplace_back([&window](){SceneManager::GameStory(window, END_SCENE);});
+    fctButtons.emplace_back([&window]() { SceneManager::GameStory(window, END_SCENE); });
     textButtons.emplace_back("Game Story");
     fctButtons.emplace_back([&window]() { window.close(); });
     textButtons.emplace_back("Exit");
 
     Menu end_menu;
     end_menu.load(window, "..\\fonts\\arial.ttf", sf::Color::White, sf::Color(Purple_color), textButtons.size(),
-               textButtons, fctButtons);
+                  textButtons, fctButtons);
 
     ///create the loop for the End Game page
     window.clear();
@@ -180,7 +193,7 @@ void SceneManager::EndGamePage(sf::RenderWindow &window) {
 
 /// \brief a page with Game Story and information about every monster
 /// \param window where the game take place
-void SceneManager::GameStory(sf::RenderWindow &window, Last_Scene scene, int score,const std::function<void()> &back) {
+void SceneManager::GameStory(sf::RenderWindow &window, Last_Scene scene, int score, const std::function<void()> &back) {
     ///will display information about every monster, image and behavior
 
     ///get the font
@@ -236,7 +249,7 @@ void SceneManager::GameStory(sf::RenderWindow &window, Last_Scene scene, int sco
         behaviors[i].setPosition(15, names[i].getPosition().y + 35);
 
         ///add the images
-        images[i].setTexture(TextureManager::getTexture((Cell_mode)(i + FINISH + 1)));
+        images[i].setTexture(TextureManager::getTexture((Cell_mode) (i + FINISH + 1)));
         images[i].setSize({diff - 35, diff - 35});
         images[i].setPosition(3.0f * window.getSize().x / 4.0f - (diff - 35) / 2.0f, names[i].getPosition().y + 35);
 

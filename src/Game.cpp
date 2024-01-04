@@ -5,6 +5,10 @@
 
 #include "../headers/Game.hpp"
 #include "../headers/SceneManager.hpp"
+#include "../headers/MazeActions.hpp"
+#include "../headers/Exceptions.hpp"
+#include <fstream>
+#include <iostream>
 
 int Game::difficulty;
 int Game::score;
@@ -79,7 +83,10 @@ void Game::nextLevel(sf::RenderWindow &window) {
         score += level_score;
 
         ///update the difficulty - for every 4 levels of a difficulty solve the difficulty increase
-        if (score >= difficulty * 500 * 4) {difficulty ++; number_monsters = 0;}
+        if (score >= difficulty * 500 * 4) {
+            difficulty++;
+            number_monsters = 0;
+        }
 
         SceneManager::WinLevelPage(window, score);
     }

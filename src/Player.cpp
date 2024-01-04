@@ -4,6 +4,8 @@
 //
 
 #include "../headers/Player.hpp"
+#include "../headers/Exceptions.hpp"
+#include <iostream>
 
 /// \brief Overwrite the operator << for display to the output player's position
 /// \param os - ostream reference
@@ -20,7 +22,7 @@ std::ostream &operator<<(std::ostream &os, const Player &player) {
 bool Player::move(const sf::Event &e, Maze &m) {
     ///the event is not a Key Pressed, so don't affect the player
     if (e.type != sf::Event::KeyPressed) return false;
-    int lx, ly;
+    unsigned int lx, ly;
     lx = this->x;
     ly = this->y;
     switch (e.key.code) {

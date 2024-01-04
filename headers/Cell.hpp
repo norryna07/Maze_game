@@ -1,6 +1,6 @@
 //
 // Created by Norina Alexandru on 10/22/2023.
-// A class header for
+// A class header for Cell of the maze.
 //
 
 #ifndef OOP_CELL_H
@@ -10,7 +10,7 @@
 #include "TextureManager.hpp"
 #include <ostream>
 
-
+/// \brief contain information about a cell of the maze
 class Cell {
     sf::RectangleShape rect;
     Cell_mode mode;

@@ -29,7 +29,7 @@ Button::Button(const std::string &buttonText, const sf::Font &font, const sf::Ve
     text.setPosition(position);
 
     ///Set up button rectangle based on text size
-    rect.setSize(sf::Vector2f (textRect.width + 40, textRect.height + 20));
+    rect.setSize(sf::Vector2f(textRect.width + 40, textRect.height + 20));
     rect.setFillColor(buttonColor);
     rect.setOrigin(rect.getSize() / 2.0f);
     rect.setPosition(position);

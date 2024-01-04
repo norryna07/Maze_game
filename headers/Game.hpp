@@ -8,10 +8,9 @@
 
 
 #include "Button.hpp"
-#include "MazeActions.hpp"
-#include <fstream>
 #include "Level.hpp"
 
+///Singleton class that manage the game.
 class Game {
     static int difficulty;
     static int score;
