@@ -7,13 +7,11 @@
 #define OOP_MAZE_H
 
 #include <vector>
-#include <string>
-#include <fstream>
-#include <iostream>
+#include <ostream>
 #include <SFML/Graphics.hpp>
 #include "Cell.hpp"
-#include "Exceptions.hpp"
 
+/// \brief contain graphics information about the maze
 class Maze {
     std::vector<std::vector<Cell>> matrix;
     const int nr_lin, nr_col;
@@ -29,8 +27,11 @@ public:
 
     bool inside(int x, int y);
 
-    bool free_cell(int x, int y);// { return matrix[x][y].getMode() != WALL;}
+    bool free_cell(int x, int y);
+
     friend std::ostream &operator<<(std::ostream &os, const Maze &maze);
+
+    bool finish(int x, int y);
 };
 
 

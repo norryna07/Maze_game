@@ -4,6 +4,8 @@
 //
 
 #include "../../headers/Monsters/SentryPaws.hpp"
+#include "../../headers/Exceptions.hpp"
+#include <iostream>
 
 Cell_mode SentryPaws::type = SENTRY_PAWS;
 
