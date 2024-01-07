@@ -232,8 +232,8 @@ void SceneManager::GameStory(sf::RenderWindow &window, Last_Scene scene, int sco
     std::vector<sf::Text> behaviors(6);
     std::vector<sf::RectangleShape> images(6);
 
-    float diff = (window.getSize().y - title.getPosition().y) / 6.0f;
-    for (int i = 0; i < 5; ++i) {
+    float diff = (window.getSize().y - title.getPosition().y) / 7.0f;
+    for (int i = 0; i < 6; ++i) {
         ///set the names
         names[i].setFont(font);
         names[i].setString(monstersName[i]);
@@ -250,8 +250,8 @@ void SceneManager::GameStory(sf::RenderWindow &window, Last_Scene scene, int sco
 
         ///add the images
         images[i].setTexture(TextureManager::getTexture((Cell_mode) (i + FINISH + 1)));
-        images[i].setSize({diff - 35, diff - 35});
-        images[i].setPosition(3.0f * window.getSize().x / 4.0f - (diff - 35) / 2.0f, names[i].getPosition().y + 35);
+        images[i].setSize({diff - 15, diff - 15});
+        images[i].setPosition(3.0f * window.getSize().x / 4.0f - (diff - 35) / 2.0f, names[i].getPosition().y + 15);
 
     }
 
@@ -273,7 +273,7 @@ void SceneManager::GameStory(sf::RenderWindow &window, Last_Scene scene, int sco
     }
 
     ///create the exit button
-    Button exit("Back", font, {window.getSize().x / 2.0f, 6 * diff - 30}, fct, sf::Color::White,
+    Button exit("Back", font, {window.getSize().x / 2.0f, 7 * diff - 20}, fct, sf::Color::White,
                 sf::Color(Purple_color));
 
 
