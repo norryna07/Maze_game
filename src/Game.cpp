@@ -83,7 +83,8 @@ void Game::nextLevel(sf::RenderWindow &window) {
         score += level_score;
 
         ///update the difficulty - for every 4 levels of a difficulty solve the difficulty increase
-        if (score >= difficulty * 500 * 4) {
+        if (difficulty == 1) difficulty ++;
+        else if (score >= (difficulty-1) * 500 * 4 + 750) {
             difficulty++;
             number_monsters = 0;
         }
