@@ -100,7 +100,7 @@ Help Whiskers navigate through the Labyrinth of Paws, avoid the various monsters
     ```bash
     unzip norryna07_Maze_game_Debug_YourOS.zip 
     cd norryna07_Maze_game_Debug_YourOS 
-    ./oop
+    ./bin/oop
     
 3.  **Navigate the Maze:**
     
